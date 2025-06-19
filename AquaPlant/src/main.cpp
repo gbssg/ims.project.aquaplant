@@ -1,28 +1,42 @@
 #include <Arduino.h>
-// put function declarations here:
-int myFunction(int, int);
-
-void textOutput()
-{
-  Serial.println("Function");
-}
+#include <Wire.h>
+#include <MS.h>
+#include <LCD.h>
+#include <OLED.h>
 
 void setup()
 {
-  // put your setup code here, to run once:
   Serial.begin(115200);
-  delay(1000);
-  Serial.println("Hello World");
-  textOutput();
+  Serial1.begin(9600);
+  Wire.begin();
+
+  oledSetup();
+
+  lcdSetup();
+
+  moistureSensorSetup();
 }
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
-}
 
-// put function definitions here:
-int myFunction(int x, int y)
-{
-  return x + y;
+  lcdLoop();
+
+  moistureSensorLoop();
+
+  if (get_value() <= 500)
+  {
+    emojiHappy();
+    statusGood();
+  }
+  else if (get_value() <= 700 && get_value() > 500)
+  {
+    emojiMeh();
+    statusMeh();
+  }
+  else if (get_value() > 700)
+  {
+    emojiSad();
+    statusBad();
+  }
 }
