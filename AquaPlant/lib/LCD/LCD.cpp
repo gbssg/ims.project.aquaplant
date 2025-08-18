@@ -1,10 +1,13 @@
-#include <SerLCD.h> // LCD Bilbiothek
+#include <SerLCD.h>
 #include <Wire.h>
 #include <MS.h>
 #include "LCD.h"
 
 static SerLCD lcd; // Initialisierung der Bibliothek mit der default I2C addresse 0x72
 unsigned long startMillislcdLoop = 0;
+int startMillisLoadingLoop = 0;
+int i = 0;
+int messwert = 0;
 
 void lcdSetup()
 {
@@ -21,31 +24,143 @@ void lcdLoop()
   if ((millis() - startMillislcdLoop) <= 5000)
   {
     lcd.setCursor(0, 0);
-    lcd.print("Messwert:");
-    lcd.print(get_value());
+    messwert = get_value();
+    if (messwert < 10)
+    {
+      lcd.print("Messwert:      ");
+      lcd.print(messwert);
+    }
+    else if (messwert < 100)
+    {
+      lcd.print("Messwert:     ");
+      lcd.print(messwert);
+    }
+    else if (messwert < 1000)
+    {
+      lcd.print("Messwert:    ");
+      lcd.print(messwert);
+    }
+    else if (messwert < 10000)
+    {
+      lcd.print("Messwert:   ");
+      lcd.print(messwert);
+    }
+    else
+    {
+      lcd.print("Messwert:  ");
+      lcd.print(messwert);
+    }
   }
   else
   {
     startMillislcdLoop = millis();
-    Serial.println("Clear");
-    lcd.clear();
   }
 }
 
 void statusGood()
 {
   lcd.setCursor(0, 1);
-  lcd.print("Wunderbar!");
+  lcd.print("Wunderbar!     ");
 }
 
 void statusMeh()
 {
   lcd.setCursor(0, 1);
-  lcd.print("Ganz okey...");
+  lcd.print("Ganz okey...   ");
 }
 
 void statusBad()
 {
   lcd.setCursor(0, 1);
   lcd.print("Gib mir Wasser!");
+}
+
+void CreateCharSetup()
+{
+  byte circle1[8] =
+      {
+          B00000,
+          B00000,
+          B00000,
+          B10001,
+          B10001,
+          B00000,
+          B00000,
+          B00000,
+      };
+  byte circle2[8] =
+      {
+          B00000,
+          B00000,
+          B00010,
+          B00001,
+          B10000,
+          B01000,
+          B00000,
+          B00000,
+      };
+  byte circle3[8] =
+      {
+          B00000,
+          B00000,
+          B00110,
+          B00000,
+          B00000,
+          B01100,
+          B00000,
+          B00000,
+
+      };
+  byte circle4[8] =
+      {
+          B00000,
+          B00000,
+          B01100,
+          B00000,
+          B00000,
+          B00110,
+          B00000,
+          B00000,
+      };
+
+  byte circle5[8] =
+      {
+          B00000,
+          B00000,
+          B01000,
+          B10000,
+          B00001,
+          B00010,
+          B00000,
+          B00000,
+      };
+
+  lcd.createChar(0, circle1);
+  lcd.createChar(1, circle2);
+  lcd.createChar(2, circle3);
+  lcd.createChar(3, circle4);
+  lcd.createChar(4, circle5);
+}
+
+void WriteChar()
+{
+  lcd.setCursor(15, 1);
+  if ((millis() - startMillisLoadingLoop) <= 500)
+  {
+    lcd.writeChar(i);
+    i++;
+    if (i > 4)
+    {
+      i = 0;
+    }
+  }
+  else
+  {
+    startMillisLoadingLoop = millis();
+  }
+}
+
+void ClearScreen()
+{
+  lcd.clear();
 }

@@ -15,14 +15,17 @@ void setup()
   lcdSetup();
 
   moistureSensorSetup();
+
+  CreateCharSetup();
 }
 
 void loop()
 {
-
   lcdLoop();
 
   moistureSensorLoop();
+
+  WriteChar();
 
   if (get_value() <= 500)
   {

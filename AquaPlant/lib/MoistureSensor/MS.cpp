@@ -42,7 +42,6 @@ void moistureSensorLoop()
 {
     if ((millis() - startMillisMSLoop) <= 1000)
     {
-        get_value();
         ledOn();
     }
     else if ((millis() - startMillisMSLoop) <= 2000)

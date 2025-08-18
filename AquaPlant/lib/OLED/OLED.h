@@ -5,3 +5,4 @@ void emojiMeh();
 void emojiHappy();
 void emojiSad();
 void emojiShowcase();
+void bitsMap();
