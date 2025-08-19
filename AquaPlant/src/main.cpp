@@ -29,17 +29,17 @@ void loop()
 
   if (get_value() <= 500)
   {
-    emojiHappy();
+    emojiHappy2();
     statusGood();
   }
   else if (get_value() <= 700 && get_value() > 500)
   {
-    emojiMeh();
+    emojiMeh2();
     statusMeh();
   }
   else if (get_value() > 700)
   {
-    emojiSad();
+    emojiSad2();
     statusBad();
   }
 }
