@@ -12,6 +12,7 @@ unsigned long startMillisMSLoop = 0;
 
 uint16_t ADC_VALUE = 0; // Feuchtigkeitswert
 
+// Feuchtigkeitswert
 int get_value()
 {
     Wire.beginTransmission(qwiicAddress);
@@ -38,6 +39,7 @@ int get_value()
     return ADC_Wert;
 }
 
+// LEDs zur Überprüfung
 void moistureSensorLoop()
 {
     if ((millis() - startMillisMSLoop) <= 1000)
@@ -54,6 +56,7 @@ void moistureSensorLoop()
     }
 }
 
+// LEDs zur Überprüfung
 void moistureSensorSetup()
 {
     if ((millis() - startMillisMSSetup) <= 1000)
@@ -66,6 +69,7 @@ void moistureSensorSetup()
     }
 }
 
+// LEDs zur Überprüfung
 void ledOn()
 {
     Wire.beginTransmission(qwiicAddress);
@@ -73,6 +77,7 @@ void ledOn()
     Wire.endTransmission();
 }
 
+// LEDs zur Überprüfung
 void ledOff()
 {
     Wire.beginTransmission(qwiicAddress);

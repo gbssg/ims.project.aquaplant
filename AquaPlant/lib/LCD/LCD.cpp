@@ -9,6 +9,7 @@ int startMillisLoadingLoop = 0;
 int i = 0;
 int messwert = 0;
 
+// Grundeinstellungen
 void lcdSetup()
 {
   lcd.begin(Wire);
@@ -19,6 +20,7 @@ void lcdSetup()
   lcd.setContrast(5);
 }
 
+// Datenanzeige des LCDs
 void lcdLoop()
 {
   if ((millis() - startMillislcdLoop) <= 5000)
@@ -57,6 +59,8 @@ void lcdLoop()
   }
 }
 
+// Nachrichten, welche je nach Zustand angezeigt werden
+// Überarbeiten!
 void statusGood()
 {
   lcd.setCursor(0, 1);
@@ -75,6 +79,7 @@ void statusBad()
   lcd.print("Gib mir Wasser!");
 }
 
+// Animation zur Überprüfung der FPS
 void CreateCharSetup()
 {
   byte circle1[8] =
@@ -142,6 +147,7 @@ void CreateCharSetup()
   lcd.createChar(4, circle5);
 }
 
+// Zyklus der Animation
 void WriteChar()
 {
   lcd.setCursor(15, 1);
