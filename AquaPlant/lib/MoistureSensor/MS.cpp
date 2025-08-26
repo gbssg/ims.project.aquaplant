@@ -29,14 +29,15 @@ int get_value()
         ADC_VALUE = ADC_VALUE_H;
         ADC_VALUE <<= 8;
         ADC_VALUE |= ADC_VALUE_L;
-        Serial.print("ADC_VALUE:  ");
-        Serial.println(ADC_VALUE);
+        // Serial.print("ADC_VALUE:  ");
+        // Serial.println(ADC_VALUE);
     }
     uint16_t x = Wire.read();
     // Example Code
-    int ADC_Wert = int(ADC_VALUE);
-    Wire.println(ADC_VALUE);
-    return ADC_Wert;
+    double ADC_Wert = int(ADC_VALUE);
+    int P_ADC_Wert = 100 - (100 / (double)1023 * ADC_Wert);
+    Serial.println(ADC_Wert);
+    return P_ADC_Wert;
 }
 
 // LEDs zur Überprüfung

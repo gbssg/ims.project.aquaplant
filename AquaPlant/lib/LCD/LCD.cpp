@@ -3,10 +3,11 @@
 #include <MS.h>
 #include "LCD.h"
 
-static SerLCD lcd; // Initialisierung der Bibliothek mit der default I2C addresse 0x72
+static SerLCD lcd;
 unsigned long startMillislcdLoop = 0;
 int startMillisLoadingLoop = 0;
 int i = 0;
+int messwertRaw = 0;
 int messwert = 0;
 
 // Grundeinstellungen
@@ -29,18 +30,21 @@ void lcdLoop()
     messwert = get_value();
     if (messwert < 10)
     {
-      lcd.print("Messwert:      ");
+      lcd.print("Messwert:     ");
       lcd.print(messwert);
+      lcd.print("%");
     }
     else if (messwert < 100)
     {
-      lcd.print("Messwert:     ");
+      lcd.print("Messwert:    ");
       lcd.print(messwert);
+      lcd.print("%");
     }
     else if (messwert < 1000)
     {
-      lcd.print("Messwert:    ");
+      lcd.print("Messwert:   ");
       lcd.print(messwert);
+      lcd.print("%");
     }
     else if (messwert < 10000)
     {
