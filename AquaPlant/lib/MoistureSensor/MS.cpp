@@ -12,7 +12,7 @@ unsigned long startMillisMSLoop = 0;
 
 uint16_t ADC_VALUE = 0; // Feuchtigkeitswert
 
-// Feuchtigkeitswert
+// Feuchtigkeitswert | Keine Funktionen waren verfügbar => Musste Code Example anpassen
 int get_value()
 {
     Wire.beginTransmission(qwiicAddress);
@@ -33,11 +33,9 @@ int get_value()
         // Serial.println(ADC_VALUE);
     }
     uint16_t x = Wire.read();
-    // Example Code
     double ADC_Wert = int(ADC_VALUE);
-    int P_ADC_Wert = 100 - (100 / (double)1023 * ADC_Wert);
     Serial.println(ADC_Wert);
-    return P_ADC_Wert;
+    return ADC_Wert;
 }
 
 // LEDs zur Überprüfung

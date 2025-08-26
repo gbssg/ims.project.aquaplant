@@ -2,9 +2,9 @@
 
 void lcdSetup();
 void lcdLoop();
-void statusGood();
-void statusMeh();
-void statusBad();
+void LCDHappy();
+void LCDMeh();
+void LCDSad();
 void CreateCharSetup();
 void WriteChar();
 void ClearScreen();

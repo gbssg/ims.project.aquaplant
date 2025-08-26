@@ -10,7 +10,7 @@ SCMDDiagnostics Diagnostics;
 uint8_t MDAdress = 0x5D;
 uint8_t motorNum = 1;  // 0-33  Addressen verfügbar
 uint8_t direction = 1; // 0/1   Vorwärts
-uint8_t level = 255;   // 0-255 Geschwindigkeit
+uint8_t level = 0;     // 0-255 Geschwindigkeit
 
 void MDSetup()
 {
@@ -25,6 +25,36 @@ void MDSetup()
 
 void MDLoop()
 {
+    if (myMD.ready())
+    {
+        if (!myMD.busy())
+        {
+            myMD.enable();
+            myMD.setDrive(motorNum, direction, level);
+            myMD.disable();
+            myMD.reset();
+        }
+    }
+}
+
+void MDLoopMeh()
+{
+    level = 125;
+    if (myMD.ready())
+    {
+        if (!myMD.busy())
+        {
+            myMD.enable();
+            myMD.setDrive(motorNum, direction, level);
+            myMD.disable();
+            myMD.reset();
+        }
+    }
+}
+
+void MDLoopSad()
+{
+    level = 255;
     if (myMD.ready())
     {
         if (!myMD.busy())

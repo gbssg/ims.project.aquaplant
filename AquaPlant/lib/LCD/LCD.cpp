@@ -7,7 +7,6 @@ static SerLCD lcd;
 unsigned long startMillislcdLoop = 0;
 int startMillisLoadingLoop = 0;
 int i = 0;
-int messwertRaw = 0;
 int messwert = 0;
 
 // Grundeinstellungen
@@ -26,8 +25,9 @@ void lcdLoop()
 {
   if ((millis() - startMillislcdLoop) <= 5000)
   {
+    messwert = 100 - (100 / (double)1023 * get_value());
     lcd.setCursor(0, 0);
-    messwert = get_value();
+
     if (messwert < 10)
     {
       lcd.print("Messwert:     ");
@@ -65,19 +65,19 @@ void lcdLoop()
 
 // Nachrichten, welche je nach Zustand angezeigt werden
 // Überarbeiten!
-void statusGood()
+void LCDHappy()
 {
   lcd.setCursor(0, 1);
   lcd.print("Wunderbar!     ");
 }
 
-void statusMeh()
+void LCDMeh()
 {
   lcd.setCursor(0, 1);
   lcd.print("Ganz okey...   ");
 }
 
-void statusBad()
+void LCDSad()
 {
   lcd.setCursor(0, 1);
   lcd.print("Gib mir Wasser!");
