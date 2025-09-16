@@ -2,6 +2,7 @@
 #include <Wire.h>
 #include <MS.h>
 #include "LCD.h"
+#include "MD.h"
 
 static SerLCD lcd;
 unsigned long startMillislcdLoop = 0;
@@ -168,6 +169,26 @@ void WriteChar()
   {
     startMillisLoadingLoop = millis();
   }
+}
+
+void MDTesting()
+{
+  if (GetStatus() == 1)
+  {
+    lcd.clear();
+    lcd.println("Motor is ON");
+  }
+  else if (GetStatus() == 0)
+  {
+    lcd.clear();
+    lcd.println("Motor is OFF");
+  }
+  else
+  {
+    lcd.clear();
+    Serial.print("Error");
+  }
+  lcd.println(GetLevel());
 }
 
 void ClearScreen()

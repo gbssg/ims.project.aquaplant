@@ -10,18 +10,14 @@ void setup()
   Serial.begin(115200);
   Serial1.begin(9600);
   Wire.begin();
-
-  oledSetup();
-
-  lcdSetup();
-
-  MDSetup();
-
   moistureSensorSetup();
-
+  lcdSetup();
   CreateCharSetup();
+  oledSetup();
+  MDSetup();
 }
 
+/*
 void loop()
 {
   lcdLoop();
@@ -47,4 +43,12 @@ void loop()
     LCDSad();
     MDLoopSad();
   }
+}
+*/
+
+void loop()
+{
+  moistureSensorLoop();
+  emojiHappy2();
+  MDLoop();
 }

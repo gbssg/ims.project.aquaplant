@@ -8,3 +8,4 @@ void LCDSad();
 void CreateCharSetup();
 void WriteChar();
 void ClearScreen();
+void MDTesting();
