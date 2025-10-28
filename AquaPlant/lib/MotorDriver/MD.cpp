@@ -4,6 +4,7 @@
 #include "SCMD_config.h"
 #include "Wire.h"
 #include "LCD.h"
+#include "MS.h"
 
 static SCMD myMD; // Objekt erstellen
 SCMDDiagnostics Diagnostics;
@@ -11,11 +12,13 @@ SCMDDiagnostics Diagnostics;
 uint8_t MDAdress = 0x5D; // 0x5D
 uint8_t motorNum = 0;    // 0-33  Addressen verfügbar|Pumpe => 0
 uint8_t direction = 1;   // 0/1   Vorwärts
-uint8_t level = 80;      // 0-255 Geschwindigkeit | 80-255
+uint8_t level = 150;     // 0-255 Geschwindigkeit | 80-255
 
 int status = 10;
 
 unsigned long startMillisMD = 0;
+
+bool enoughWater = false;
 
 void MDSetup()
 {
@@ -61,7 +64,7 @@ int GetLevel()
     return level;
 }
 
-void MDLoop()
+void MDLoopTest()
 {
     if (myMD.ready())
     {
@@ -71,16 +74,32 @@ void MDLoop()
             for (level; level <= 200; level += 10)
             {
                 myMD.setDrive(motorNum, direction, level);
-                // Serial.println("Motor deactivated");
-                SetStatus(0);
-                MDTesting();
-                delay(1000);
-                myMD.setDrive(motorNum, direction, level);
-                // Serial.println("Motor running");
+                // Serial.println("Motor activated");
                 SetStatus(1);
                 MDTesting();
                 delay(1000);
             }
+            myMD.setDrive(motorNum, direction, 0);
+        }
+    }
+}
+
+void MDLoop()
+{
+    if (myMD.ready())
+    {
+        myMD.enable();
+
+        if (get_value() > 700)
+        {
+            myMD.setDrive(motorNum, direction, level);
+            SetStatus(1);
+            MDTesting();
+        }
+        else
+        {
+            delay(1000);
+            myMD.setDrive(motorNum, direction, 0);
         }
     }
 }

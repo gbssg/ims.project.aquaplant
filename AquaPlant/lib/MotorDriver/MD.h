@@ -9,3 +9,4 @@ void SetStatus(int);
 int GetStatus();
 int GetMotorNum();
 int GetLevel();
+void MDLoopTest();
