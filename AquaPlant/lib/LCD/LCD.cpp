@@ -2,8 +2,9 @@
 #include <Wire.h>
 #include <MS.h>
 #include "LCD.h"
+#include "MD.h"
 
-static SerLCD lcd; // Initialisierung der Bibliothek mit der default I2C addresse 0x72
+static SerLCD lcd;
 unsigned long startMillislcdLoop = 0;
 int startMillisLoadingLoop = 0;
 int i = 0;
@@ -25,22 +26,26 @@ void lcdLoop()
 {
   if ((millis() - startMillislcdLoop) <= 5000)
   {
+    messwert = 100 - (100 / (double)1023 * get_value());
     lcd.setCursor(0, 0);
-    messwert = get_value();
+
     if (messwert < 10)
-    {
-      lcd.print("Messwert:      ");
-      lcd.print(messwert);
-    }
-    else if (messwert < 100)
     {
       lcd.print("Messwert:     ");
       lcd.print(messwert);
+      lcd.print("%");
     }
-    else if (messwert < 1000)
+    else if (messwert < 100)
     {
       lcd.print("Messwert:    ");
       lcd.print(messwert);
+      lcd.print("%");
+    }
+    else if (messwert < 1000)
+    {
+      lcd.print("Messwert:   ");
+      lcd.print(messwert);
+      lcd.print("%");
     }
     else if (messwert < 10000)
     {
@@ -61,19 +66,19 @@ void lcdLoop()
 
 // Nachrichten, welche je nach Zustand angezeigt werden
 // Überarbeiten!
-void statusGood()
+void LCDHappy()
 {
   lcd.setCursor(0, 1);
   lcd.print("Wunderbar!     ");
 }
 
-void statusMeh()
+void LCDMeh()
 {
   lcd.setCursor(0, 1);
   lcd.print("Ganz okey...   ");
 }
 
-void statusBad()
+void LCDSad()
 {
   lcd.setCursor(0, 1);
   lcd.print("Gib mir Wasser!");
@@ -177,6 +182,26 @@ void WriteChar()
   {
     startMillisLoadingLoop = millis();
   }
+}
+
+void MDTesting()
+{
+  if (GetStatus() == 1)
+  {
+    lcd.clear();
+    lcd.println("Motor is ON");
+  }
+  else if (GetStatus() == 0)
+  {
+    lcd.clear();
+    lcd.println("Motor is OFF");
+  }
+  else
+  {
+    lcd.clear();
+    Serial.print("Error");
+  }
+  lcd.println(GetLevel());
 }
 
 void ClearScreen()

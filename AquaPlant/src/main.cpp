@@ -1,22 +1,20 @@
 #include <Arduino.h>
 #include <Wire.h>
-#include <MS.h>
-#include <LCD.h>
-#include <OLED.h>
+#include "MS.h"
+#include "MD.h"
+#include "LCD.h"
+#include "OLED.h"
 
 void setup()
 {
   Serial.begin(115200);
   Serial1.begin(9600);
   Wire.begin();
-
-  oledSetup();
-
-  lcdSetup();
-
   moistureSensorSetup();
-
+  lcdSetup();
   CreateCharSetup();
+  oledSetup();
+  MDSetup();
 }
 
 void loop()
@@ -30,16 +28,18 @@ void loop()
   if (get_value() <= 500)
   {
     emojiHappy2();
-    statusGood();
+    LCDHappy();
   }
   else if (get_value() <= 700 && get_value() > 500)
   {
     emojiMeh2();
-    statusMeh();
+    LCDMeh();
+    MDLoopMeh();
   }
   else if (get_value() > 700)
   {
     emojiSad2();
-    statusBad();
+    LCDSad();
+    MDLoopSad();
   }
 }
