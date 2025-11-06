@@ -147,6 +147,19 @@ void CreateCharSetup()
   lcd.createChar(4, circle5);
 }
 
+void createCharSetup2()
+{
+  byte raindrop[8] = {
+      B00000,
+      B00010,
+      B00110,
+      B01010,
+      B10001,
+      B10001,
+      B10001,
+      B01110};
+}
+
 // Zyklus der Animation
 void WriteChar()
 {
