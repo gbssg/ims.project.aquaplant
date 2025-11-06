@@ -17,7 +17,6 @@ void setup()
   MDSetup();
 }
 
-/*
 void loop()
 {
   lcdLoop();
@@ -43,12 +42,4 @@ void loop()
     LCDSad();
     MDLoopSad();
   }
-}
-*/
-
-void loop()
-{
-  moistureSensorLoop();
-  emojiHappy2();
-  MDLoopTest();
 }
