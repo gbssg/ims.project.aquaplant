@@ -163,6 +163,18 @@ void createCharSetup2()
       B10001,
       B10001,
       B01110};
+
+  byte clock[8] = {
+      B01110,
+      B10001,
+      B10011,
+      B10101,
+      B10101,
+      B10001,
+      B10001,
+      B01110};
+
+  lcd.createChar(5, raindrop);
 }
 
 // Zyklus der Animation
