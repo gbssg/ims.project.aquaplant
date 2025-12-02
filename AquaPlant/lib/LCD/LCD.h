@@ -12,5 +12,7 @@ void ClearScreen();
 void MDTesting();
 void createCharSetupRainDrop();
 void createCharSetupClock();
+void CreateCharSetupBackslash();
 void WriteCharClock();
 void WriteCharRainDrop();
+void WriteCharBackslash();

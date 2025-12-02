@@ -69,6 +69,7 @@ void setup()
   lcdSetup();
   createCharSetupRainDrop();
   createCharSetupClock();
+  CreateCharSetupBackslash();
   CreateCharSetup();
   oledSetup();
   MDSetup();

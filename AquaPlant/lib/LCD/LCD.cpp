@@ -10,7 +10,7 @@ int startMillisLoadingLoop = 0;
 int i = 0;
 int messwert = 0;
 int startMillisWateringState = 0;
-int timeWithoutWater = 1;
+int timeWateringState = 60;
 
 // Grundeinstellungen
 void lcdSetup()
@@ -69,28 +69,43 @@ void lcdNormalStateLoop()
 void lcdWateringStateLoop()
 {
   messwert = 100 - (100 / (double)1023 * get_value());
-  int testValue = (millis()) / 1000;
+  int timeWithoutWater = (millis()) / 1000;
 
   if ((millis() - startMillisWateringState) >= 1000)
   {
     startMillisWateringState = millis();
+
     lcd.setCursor(0, 0);
     WriteCharRainDrop();
+
     lcd.setCursor(1, 0);
     lcd.print(":");
+
     lcd.setCursor(2, 0);
     lcd.print(messwert);
+
     lcd.setCursor(4, 0);
     lcd.print("%");
+
     lcd.setCursor(8, 0);
     WriteCharClock();
+
     lcd.setCursor(9, 0);
     lcd.print(":");
-    lcd.print(testValue);
+
+    lcd.print(timeWateringState);
+    timeWateringState--;
     lcd.print("s");
+
     lcd.setCursor(0, 1);
+    WriteCharClock();
+
+    lcd.setCursor(1, 1);
+    WriteCharBackslash();
+    WriteCharRainDrop();
+    lcd.print(":");
     lcd.print(timeWithoutWater);
-    timeWithoutWater++;
+    lcd.print("s");
   }
 }
 
@@ -212,6 +227,21 @@ void createCharSetupClock()
   lcd.createChar(6, clock);
 }
 
+void CreateCharSetupBackslash()
+{
+  byte backslash[8] = {
+      B00000,
+      B00001,
+      B00010,
+      B00100,
+      B01000,
+      B10000,
+      B00000,
+      B00000};
+
+  lcd.createChar(7, backslash);
+}
+
 // Zyklus der Animation
 void WriteCharLoadingAnimation()
 {
@@ -239,6 +269,11 @@ void WriteCharRainDrop()
 void WriteCharClock()
 {
   lcd.writeChar(6);
+}
+
+void WriteCharBackslash()
+{
+  lcd.writeChar(7);
 }
 
 void MDTesting()
