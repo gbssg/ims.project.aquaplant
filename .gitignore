@@ -1,1 +1,21 @@
-Images/CharSet/ProtonVPN_v4.3.5_x64.exe
+# --- Visual Studio & VS Code ---
+.vs/
+.vscode/
+*.code-workspace
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+
+# --- Compiled Object & Binary Files ---
+*.bin
+*.hex
+*.elf
+*.o
+*.a
+*.d
+
+# --- OS Generated Files ---
+.DS_Store
+Thumbs.db
