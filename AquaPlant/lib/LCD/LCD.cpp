@@ -11,6 +11,7 @@ int i = 0;
 int messwert = 0;
 int startMillisWateringState = 0;
 int timeWateringState = 60;
+boolean isWatering = true;
 
 // Grundeinstellungen
 void lcdSetup()
@@ -73,39 +74,53 @@ void lcdWateringStateLoop()
 
   if ((millis() - startMillisWateringState) >= 1000)
   {
-    startMillisWateringState = millis();
 
-    lcd.setCursor(0, 0);
-    WriteCharRainDrop();
+    if (timeWateringState <= 0)
+    {
+      timeWateringState = 60;
+      isWatering = false;
+    }
+    else
+    {
+      startMillisWateringState = millis();
 
-    lcd.setCursor(1, 0);
-    lcd.print(":");
+      lcd.setCursor(0, 0);
+      WriteCharRainDrop();
 
-    lcd.setCursor(2, 0);
-    lcd.print(messwert);
+      lcd.setCursor(1, 0);
+      lcd.print(":");
 
-    lcd.setCursor(4, 0);
-    lcd.print("%");
+      lcd.setCursor(2, 0);
+      lcd.print(messwert);
 
-    lcd.setCursor(8, 0);
-    WriteCharClock();
+      lcd.setCursor(4, 0);
+      lcd.print("%");
 
-    lcd.setCursor(9, 0);
-    lcd.print(":");
+      lcd.setCursor(8, 0);
+      WriteCharClock();
 
-    lcd.print(timeWateringState);
-    timeWateringState--;
-    lcd.print("s");
+      lcd.setCursor(9, 0);
+      lcd.print(":");
 
-    lcd.setCursor(0, 1);
-    WriteCharClock();
+      if (timeWateringState == 10)
+      {
+        lcd.clear();
+      }
 
-    lcd.setCursor(1, 1);
-    WriteCharBackslash();
-    WriteCharRainDrop();
-    lcd.print(":");
-    lcd.print(timeWithoutWater);
-    lcd.print("s");
+      lcd.print(timeWateringState);
+      timeWateringState--;
+      lcd.print("s");
+
+      lcd.setCursor(0, 1);
+      WriteCharClock();
+
+      lcd.setCursor(1, 1);
+      WriteCharBackslash();
+      WriteCharRainDrop();
+      lcd.print(":");
+      lcd.print(timeWithoutWater);
+      lcd.print("s");
+    }
   }
 }
 
