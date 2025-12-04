@@ -6,22 +6,36 @@
 #include "OLED.h"
 
 int value = get_value();
+int state = 0;
 
 typedef void (*FunctionPointer)();
-FunctionPointer emojiPointer = NULL;
-FunctionPointer LCDPointer = NULL;
+FunctionPointer statePointer = NULL;
 
-FunctionPointer emojiMethods[] =
+FunctionPointer states[] =
     {
-        emojiHappy2,
-        emojiMeh2,
-        emojiSad2};
+        happyState,
+        mehState,
+        sadState};
 
-FunctionPointer LCDMethods[] =
-    {
-        LCDHappy,
-        LCDMeh,
-        LCDSad};
+void happyState()
+{
+  emojiHappy2();
+  LCDHappy();
+}
+
+void mehState()
+{
+  emojiHappy2();
+  LCDHappy();
+  MDLoopMeh();
+}
+
+void sadState()
+{
+  emojiSad2();
+  LCDSad();
+  MDLoopSad();
+}
 
 void normalState()
 {
@@ -33,26 +47,19 @@ void normalState()
 
   if (value <= 500)
   {
-    emojiPointer = emojiMethods[0];
-    LCDPointer = LCDMethods[0];
+    state = 0;
   }
   else if (value <= 700 && value > 500)
   {
-    emojiPointer = emojiMethods[1];
-    LCDPointer = LCDMethods[1];
-
-    MDLoopMeh();
+    state = 1;
   }
   else if (value > 700)
   {
-    emojiPointer = emojiMethods[2];
-    LCDPointer = LCDMethods[2];
-
-    MDLoopSad();
+    state = 2;
   }
 
-  emojiPointer();
-  LCDPointer();
+  statePointer = states[state];
+  statePointer();
 }
 
 void wateringState()
