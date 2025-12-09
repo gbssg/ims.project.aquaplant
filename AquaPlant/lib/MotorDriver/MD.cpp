@@ -141,6 +141,10 @@ void MDLoopSad()
             myMD.reset();
         }
     }
+    else
+    {
+        Serial.println("Motor not ready");
+    }
 }
 
 // Under Construction
