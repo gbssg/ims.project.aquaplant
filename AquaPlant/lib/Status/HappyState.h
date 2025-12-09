@@ -10,17 +10,7 @@
 class HappyState : public IState
 {
 public:
-    void RenderLCD()
-    {
-        LCDHappy();
-    };
-    void RenderOLED()
-    {
-        emojiHappy2();
-    };
-    void ExecuteMD()
-    {
-        // No implementation for HappyState
-        Serial.println("HappyState: No MD action required.");
-    };
+    void RenderLCD();
+    void RenderOLED();
+    void ExecuteMD();
 };
