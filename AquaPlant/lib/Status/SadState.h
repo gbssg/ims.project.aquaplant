@@ -7,7 +7,7 @@
 // Class
 #include "IState.h"
 
-class HappyState : public State
+class SadState : public IState
 {
 public:
     void RenderLCD()

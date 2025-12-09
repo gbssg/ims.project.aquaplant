@@ -7,7 +7,7 @@
 // Class
 #include "IState.h"
 
-class MehState : public State
+class MehState : public IState
 {
 public:
     void RenderLCD()
