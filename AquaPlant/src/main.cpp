@@ -4,18 +4,15 @@
 #include "MD.h"
 #include "LCD.h"
 #include "OLED.h"
+#include "HappyState.h"
+// Class
+#include "IState.h"
 
 int value = get_value();
 int state = 0;
 
 typedef void (*FunctionPointer)();
 FunctionPointer statePointer = NULL;
-
-FunctionPointer states[] =
-    {
-        happyState,
-        mehState,
-        sadState};
 
 void happyState()
 {
@@ -36,6 +33,12 @@ void sadState()
   LCDSad();
   MDLoopSad();
 }
+
+FunctionPointer states[] =
+    {
+        happyState,
+        mehState,
+        sadState};
 
 void normalState()
 {
