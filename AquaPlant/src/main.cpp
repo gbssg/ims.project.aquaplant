@@ -10,7 +10,6 @@
 #include "MehState.h"
 #include "SadState.h"
 
-int value = get_value();
 int state = 0;
 
 IState *statesArray[] = {
@@ -27,6 +26,8 @@ void normalState()
   moistureSensorLoop();
 
   WriteCharLoadingAnimation();
+
+  int value = get_value();
 
   if (value <= 500)
   {
@@ -70,5 +71,5 @@ void setup()
 
 void loop()
 {
-  wateringState();
+  normalState();
 }
