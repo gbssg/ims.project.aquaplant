@@ -5,23 +5,35 @@
 #include "LCD.h"
 #include "OLED.h"
 
-int timeForMehStatus = 0;
-int timeForHappyStatus = 0;
+int TimeForMehStatus = 0;
+bool StopMehStatus = false;
+int TimeForHappyStatus = 0;
+bool StopHappyStatus = false;
 
 void stopWatchHappyStatus()
 {
-  timeForHappyStatus = millis();
-  Serial.println("------------------");
-  Serial.println(timeForHappyStatus);
-  Serial.println("------------------");
+  if (!StopHappyStatus)
+  {
+    TimeForHappyStatus = millis();
+    Serial.println("------------------");
+    Serial.print("Time for Happy:");
+    Serial.println(TimeForHappyStatus / 1000);
+    Serial.println("------------------");
+    StopHappyStatus = true;
+  }
 }
 
 void stopWatchMehStatus()
 {
-  timeForHappyStatus = millis();
-  Serial.println("------------------");
-  Serial.println(timeForMehStatus);
-  Serial.println("------------------");
+  if (!StopMehStatus)
+  {
+    TimeForMehStatus = millis();
+    Serial.println("------------------");
+    Serial.print("Time for Meh:");
+    Serial.println(TimeForMehStatus / 1000);
+    Serial.println("------------------");
+    StopMehStatus = true;
+  }
 }
 
 void setup()
