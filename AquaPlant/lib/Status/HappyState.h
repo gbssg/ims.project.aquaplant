@@ -1,15 +1,26 @@
 #pragma once
 
+#include <Arduino.h>
+#include "OLED.h"
+#include "LCD.h"
+#include "MD.h"
+// Class
+#include "IState.h"
+
 class HappyState : public State
 {
 public:
-    void RenderLCD() {
-        // Implementation for rendering on LCD when in Happy State
+    void RenderLCD()
+    {
+        LCDHappy();
     };
-    void RenderOLED() {
-        // Implementation for rendering on OLED when in Happy State
+    void RenderOLED()
+    {
+        emojiHappy2();
     };
-    void ExecuteMD() {
-        // Implementation for executing MD when in Happy State
+    void ExecuteMD()
+    {
+        // No implementation for HappyState
+        Serial.println("HappyState: No MD action required.");
     };
 };
