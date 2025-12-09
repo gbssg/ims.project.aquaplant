@@ -10,15 +10,7 @@
 class SadState : public IState
 {
 public:
-    void RenderLCD()
-    {
-        LCDSad();
-    };
-    void RenderOLED()
-    {
-        emojiSad2();
-    };
-    void ExecuteMD() {
-        // MDLoopSad();
-    };
+    void RenderLCD();
+    void RenderOLED();
+    void ExecuteMD();
 };

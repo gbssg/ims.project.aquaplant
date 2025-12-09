@@ -10,15 +10,8 @@
 class MehState : public IState
 {
 public:
-    void RenderLCD()
-    {
-        LCDMeh();
-    };
-    void RenderOLED()
-    {
-        emojiMeh2();
-    };
-    void ExecuteMD() {
-        // MDLoopMeh();
-    };
+    void RenderLCD();
+    void RenderOLED();
+    void ExecuteMD();
+
 };
