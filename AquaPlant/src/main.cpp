@@ -34,12 +34,10 @@ void loop()
   {
     emojiMeh2();
     LCDMeh();
-    MDLoopMeh();
   }
   else if (get_value() > 700)
   {
     emojiSad2();
     LCDSad();
-    MDLoopSad();
   }
 }
