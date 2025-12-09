@@ -4,41 +4,21 @@
 #include "MD.h"
 #include "LCD.h"
 #include "OLED.h"
-#include "HappyState.h"
 // Class
 #include "IState.h"
+#include "HappyState.h"
+#include "MehState.h"
+#include "SadState.h"
 
 int value = get_value();
 int state = 0;
 
-typedef void (*FunctionPointer)();
-FunctionPointer statePointer = NULL;
+IState *statesArray[] = {
+    new HappyState(),
+    new MehState(),
+    new SadState()};
 
-void happyState()
-{
-  emojiHappy2();
-  LCDHappy();
-}
-
-void mehState()
-{
-  emojiHappy2();
-  LCDHappy();
-  MDLoopMeh();
-}
-
-void sadState()
-{
-  emojiSad2();
-  LCDSad();
-  MDLoopSad();
-}
-
-FunctionPointer states[] =
-    {
-        happyState,
-        mehState,
-        sadState};
+IState *aktuellerZustand = nullptr;
 
 void normalState()
 {
@@ -61,8 +41,11 @@ void normalState()
     state = 2;
   }
 
-  statePointer = states[state];
-  statePointer();
+  aktuellerZustand = statesArray[state];
+
+  aktuellerZustand->RenderLCD();
+  aktuellerZustand->RenderOLED();
+  aktuellerZustand->ExecuteMD();
 }
 
 void wateringState()
