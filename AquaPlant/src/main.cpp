@@ -21,6 +21,13 @@ void stopWatchHappyStatus()
     Serial.println("------------------");
     StopHappyStatus = true;
   }
+  else
+  {
+    Serial.println("------------------");
+    Serial.print("Time for Happy:");
+    Serial.println(TimeForHappyStatus / 1000);
+    Serial.println("------------------");
+  }
 }
 
 void stopWatchMehStatus()
@@ -33,6 +40,13 @@ void stopWatchMehStatus()
     Serial.println(TimeForMehStatus / 1000);
     Serial.println("------------------");
     StopMehStatus = true;
+  }
+  else
+  {
+    Serial.println("------------------");
+    Serial.print("Time for Meh:");
+    Serial.println(TimeForMehStatus / 1000);
+    Serial.println("------------------");
   }
 }
 
