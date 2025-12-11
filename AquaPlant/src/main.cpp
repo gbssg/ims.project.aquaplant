@@ -4,6 +4,55 @@
 #include "MD.h"
 #include "LCD.h"
 #include "OLED.h"
+// Class
+#include "IState.h"
+#include "HappyState.h"
+#include "MehState.h"
+#include "SadState.h"
+
+int state = 0;
+
+IState *statesArray[] = {
+    new HappyState(),
+    new MehState(),
+    new SadState()};
+
+IState *aktuellerZustand = nullptr;
+
+void normalState()
+{
+  lcdNormalStateLoop();
+
+  moistureSensorLoop();
+
+  WriteCharLoadingAnimation();
+
+  int value = get_value();
+
+  if (value <= 500)
+  {
+    state = 0;
+  }
+  else if (value <= 700 && value > 500)
+  {
+    state = 1;
+  }
+  else if (value > 700)
+  {
+    state = 2;
+  }
+
+  aktuellerZustand = statesArray[state];
+
+  aktuellerZustand->RenderLCD();
+  aktuellerZustand->RenderOLED();
+  aktuellerZustand->ExecuteMD();
+}
+
+void wateringState()
+{
+  lcdWateringStateLoop();
+}
 
 void setup()
 {
@@ -12,6 +61,9 @@ void setup()
   Wire.begin();
   moistureSensorSetup();
   lcdSetup();
+  createCharSetupRainDrop();
+  createCharSetupClock();
+  CreateCharSetupBackslash();
   CreateCharSetup();
   oledSetup();
   MDSetup();
@@ -19,27 +71,5 @@ void setup()
 
 void loop()
 {
-  lcdLoop();
-
-  moistureSensorLoop();
-
-  WriteChar();
-
-  if (get_value() <= 500)
-  {
-    emojiHappy2();
-    LCDHappy();
-  }
-  else if (get_value() <= 700 && get_value() > 500)
-  {
-    emojiMeh2();
-    LCDMeh();
-    MDLoopMeh();
-  }
-  else if (get_value() > 700)
-  {
-    emojiSad2();
-    LCDSad();
-    MDLoopSad();
-  }
+  normalState();
 }

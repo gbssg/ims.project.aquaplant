@@ -1,11 +1,18 @@
 #pragma once
 
 void lcdSetup();
-void lcdLoop();
+void lcdNormalStateLoop();
+void lcdWateringStateLoop();
 void LCDHappy();
 void LCDMeh();
 void LCDSad();
 void CreateCharSetup();
-void WriteChar();
+void WriteCharLoadingAnimation();
 void ClearScreen();
 void MDTesting();
+void createCharSetupRainDrop();
+void createCharSetupClock();
+void CreateCharSetupBackslash();
+void WriteCharClock();
+void WriteCharRainDrop();
+void WriteCharBackslash();
