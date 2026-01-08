@@ -12,6 +12,7 @@
 
 int state = 0;
 bool waterAllowed = true;
+bool screenCleared = false;
 
 IState *statesArray[] = {
     new HappyState(),
@@ -51,17 +52,24 @@ void normalState()
   {
     state = 0;
     waterAllowed = true;
+    screenCleared = false;
   }
   else if (value <= 700 && value > 500)
   {
     state = 1;
     waterAllowed = true;
+    screenCleared = false;
   }
   else if (value > 700)
   {
     state = 2;
     if (waterAllowed)
     {
+      if (!screenCleared)
+      {
+        ClearScreen();
+        screenCleared = true;
+      }
       wateringState();
       waterAllowed = false;
     }
