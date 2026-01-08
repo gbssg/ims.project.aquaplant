@@ -19,6 +19,23 @@ IState *statesArray[] = {
 
 IState *aktuellerZustand = nullptr;
 
+void wateringState()
+{
+  int waterTime = 60;
+  bool waterIt = true;
+
+  while (waterIt)
+  {
+    lcdWateringStateLoop();
+    waterTime--;
+    delay(1000);
+    if (waterTime <= 0)
+    {
+      waterIt = false;
+    }
+  }
+}
+
 void normalState()
 {
   lcdNormalStateLoop();
@@ -47,11 +64,6 @@ void normalState()
   aktuellerZustand->RenderLCD();
   aktuellerZustand->RenderOLED();
   aktuellerZustand->ExecuteMD();
-}
-
-void wateringState()
-{
-  lcdWateringStateLoop();
 }
 
 void setup()
