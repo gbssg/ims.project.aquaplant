@@ -11,6 +11,7 @@
 #include "SadState.h"
 
 int state = 0;
+bool waterAllowed = true;
 
 IState *statesArray[] = {
     new HappyState(),
@@ -49,14 +50,21 @@ void normalState()
   if (value <= 500)
   {
     state = 0;
+    waterAllowed = true;
   }
   else if (value <= 700 && value > 500)
   {
     state = 1;
+    waterAllowed = true;
   }
   else if (value > 700)
   {
     state = 2;
+    if (waterAllowed)
+    {
+      wateringState();
+      waterAllowed = false;
+    }
   }
 
   aktuellerZustand = statesArray[state];
