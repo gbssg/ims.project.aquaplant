@@ -9,8 +9,11 @@ unsigned long startMillislcdLoop = 0;
 int startMillisLoadingLoop = 0;
 int i = 0;
 int messwert = 0;
+
 int startMillisWateringState = 0;
-int timeWateringState = 10;
+int timeWateringStateStandard = 15;
+int timeWateringState = timeWateringState;
+
 boolean isWatering = true;
 
 // Grundeinstellungen
@@ -77,7 +80,7 @@ void lcdWateringStateLoop()
 
     if (timeWateringState <= 0)
     {
-      timeWateringState = 10;
+      timeWateringState = timeWateringStateStandard;
       isWatering = false;
     }
     else
@@ -102,6 +105,7 @@ void lcdWateringStateLoop()
       lcd.setCursor(9, 0);
       lcd.print(":");
 
+      // Um den Wechsel von zweistellige zu 1einstellige Sekunden aufzuräumen
       if (timeWateringState == 10)
       {
         lcd.clear();
