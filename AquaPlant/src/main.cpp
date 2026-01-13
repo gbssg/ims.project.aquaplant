@@ -25,7 +25,7 @@ IState *aktuellerZustand = nullptr;
 // Fehler noch beheben.
 void wateringState()
 {
-  int waterTime = 10;
+  int waterTime = 15;
   bool waterIt = true;
   int secondsPrevious = millis();
 
