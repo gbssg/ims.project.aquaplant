@@ -91,10 +91,11 @@ void normalState()
         {
           ClearScreen();
           screenCleared = true;
+          previousTime = millis();
+          Serial.println("Timer started");
         }
         wateringState();
         waterAllowed = false;
-        previousTime = millis();
       }
     }
     loadedOnce = true;
