@@ -80,6 +80,7 @@ void normalState()
       }
       Serial.println("Cycle ended");
     }
+    loadedOnce = true;
   }
 
   aktuellerZustand = statesArray[state];
@@ -87,8 +88,6 @@ void normalState()
   aktuellerZustand->RenderLCD();
   aktuellerZustand->RenderOLED();
   aktuellerZustand->ExecuteMD();
-
-  loadedOnce = true;
 }
 
 void setup()
