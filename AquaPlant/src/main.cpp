@@ -13,6 +13,7 @@
 int state = 0;
 bool waterAllowed = true;
 bool screenCleared = false;
+bool loadedOnce = false;
 
 IState *statesArray[] = {
     new HappyState(),
@@ -49,25 +50,35 @@ void normalState()
     state = 0;
     waterAllowed = true;
     screenCleared = false;
+    loadedOnce = false;
   }
   else if (value <= 700 && value > 500)
   {
     state = 1;
     waterAllowed = true;
     screenCleared = false;
+    loadedOnce = false;
   }
   else if (value > 700)
   {
     state = 2;
-    if (waterAllowed)
+
+    if (loadedOnce)
     {
-      if (!screenCleared)
+      Serial.println("Has loaded once");
+      if (waterAllowed)
       {
-        ClearScreen();
-        screenCleared = true;
+        if (!screenCleared)
+        {
+          ClearScreen();
+          screenCleared = true;
+          Serial.println("Screen cleared");
+        }
+        wateringState();
+        waterAllowed = false;
+        Serial.println("finished watering");
       }
-      wateringState();
-      waterAllowed = false;
+      Serial.println("Cycle ended");
     }
   }
 
@@ -76,6 +87,8 @@ void normalState()
   aktuellerZustand->RenderLCD();
   aktuellerZustand->RenderOLED();
   aktuellerZustand->ExecuteMD();
+
+  loadedOnce = true;
 }
 
 void setup()
