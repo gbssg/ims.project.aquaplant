@@ -26,25 +26,11 @@ void wateringState()
 {
   int waterTime = 10;
   bool waterIt = true;
-  int secondsPrevious = 0;
-  int secondsPassed = 0;
+  int secondsPrevious = millis();
 
-  while (waterIt)
+  while (millis() - secondsPrevious < (waterTime * 1000))
   {
-    secondsPrevious = millis() / 1000;
-    secondsPassed = millis() / 1000 - secondsPrevious;
     lcdWateringStateLoop();
-
-    if (secondsPassed >= 1)
-    {
-      secondsPrevious = secondsPassed;
-      waterTime--;
-
-      if (waterTime <= 0)
-      {
-        waterIt = false;
-      }
-    }
   }
 }
 
