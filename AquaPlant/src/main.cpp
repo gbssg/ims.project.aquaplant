@@ -65,20 +65,16 @@ void normalState()
 
     if (loadedOnce)
     {
-      Serial.println("Has loaded once");
       if (waterAllowed)
       {
         if (!screenCleared)
         {
           ClearScreen();
           screenCleared = true;
-          Serial.println("Screen cleared");
         }
         wateringState();
         waterAllowed = false;
-        Serial.println("finished watering");
       }
-      Serial.println("Cycle ended");
     }
     loadedOnce = true;
   }
