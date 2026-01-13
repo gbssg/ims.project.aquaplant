@@ -11,9 +11,12 @@
 #include "SadState.h"
 
 int state = 0;
+int previousTime = millis();
+int timeWithoutWatering = 0;
 bool waterAllowed = true;
 bool screenCleared = false;
 bool loadedOnce = false;
+bool setSadStateTime = true;
 
 IState *statesArray[] = {
     new HappyState(),
@@ -25,11 +28,11 @@ IState *aktuellerZustand = nullptr;
 // Fehler noch beheben.
 void wateringState()
 {
+  int previousTime = millis();
   int waterTime = 15;
   bool waterIt = true;
-  int secondsPrevious = millis();
 
-  while (millis() - secondsPrevious < (waterTime * 1000))
+  while (millis() - previousTime < (waterTime * 1000))
   {
     lcdWateringStateLoop();
   }
@@ -37,6 +40,7 @@ void wateringState()
 
 void normalState()
 {
+
   lcdNormalStateLoop();
 
   moistureSensorLoop();
@@ -44,6 +48,7 @@ void normalState()
   WriteCharLoadingAnimation();
 
   int value = get_value();
+  int timeInSadState = 0;
 
   if (value <= 500)
   {
@@ -51,6 +56,13 @@ void normalState()
     waterAllowed = true;
     screenCleared = false;
     loadedOnce = false;
+
+    if (setSadStateTime)
+    {
+      timeInSadState = millis() / 1000 - previousTime / 1000;
+      setSadStateTime = false;
+    }
+    Serial.println(timeInSadState);
   }
   else if (value <= 700 && value > 500)
   {
@@ -58,10 +70,18 @@ void normalState()
     waterAllowed = true;
     screenCleared = false;
     loadedOnce = false;
+
+    if (setSadStateTime)
+    {
+      timeInSadState = millis() / 1000 - previousTime / 1000;
+      setSadStateTime = false;
+    }
+    Serial.println(timeInSadState);
   }
   else if (value > 700)
   {
     state = 2;
+    setSadStateTime = true;
 
     if (loadedOnce)
     {
@@ -74,6 +94,7 @@ void normalState()
         }
         wateringState();
         waterAllowed = false;
+        previousTime = millis();
       }
     }
     loadedOnce = true;
