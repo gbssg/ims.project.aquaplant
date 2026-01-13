@@ -10,7 +10,7 @@ int startMillisLoadingLoop = 0;
 int i = 0;
 int messwert = 0;
 int startMillisWateringState = 0;
-int timeWateringState = 60;
+int timeWateringState = 10;
 boolean isWatering = true;
 
 // Grundeinstellungen
@@ -77,7 +77,7 @@ void lcdWateringStateLoop()
 
     if (timeWateringState <= 0)
     {
-      timeWateringState = 60;
+      timeWateringState = 10;
       isWatering = false;
     }
     else
