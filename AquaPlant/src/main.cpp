@@ -21,19 +21,29 @@ IState *statesArray[] = {
 
 IState *aktuellerZustand = nullptr;
 
+// Fehler noch beheben.
 void wateringState()
 {
-  int waterTime = 60;
+  int waterTime = 10;
   bool waterIt = true;
+  int secondsPrevious = 0;
+  int secondsPassed = 0;
 
   while (waterIt)
   {
+    secondsPrevious = millis() / 1000;
+    secondsPassed = millis() / 1000 - secondsPrevious;
     lcdWateringStateLoop();
-    waterTime--;
-    delay(1000);
-    if (waterTime <= 0)
+
+    if (secondsPassed >= 1)
     {
-      waterIt = false;
+      secondsPrevious = secondsPassed;
+      waterTime--;
+
+      if (waterTime <= 0)
+      {
+        waterIt = false;
+      }
     }
   }
 }
