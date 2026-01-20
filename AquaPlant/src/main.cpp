@@ -17,8 +17,9 @@ bool waterAllowed = true;
 bool screenCleared = false;
 bool loadedOnce = false;
 bool setSadStateTime = true;
-bool timerStartedForDuration = false;
+bool timerStartedDuration = false;
 int previousTimeForDuration = 0;
+int timeInSadState = 0;
 
 IState *statesArray[] = {
     new HappyState(),
@@ -49,7 +50,6 @@ void normalState()
   WriteCharLoadingAnimation();
 
   int value = get_value();
-  int timeInSadState = 0;
 
   if (value <= 500)
   {
@@ -57,9 +57,8 @@ void normalState()
     waterAllowed = true;
     screenCleared = false;
     loadedOnce = false;
-    timerStartedForDuration = false;
+    timerStartedDuration = false;
     BackGroundColor(255, 255, 255);
-    timeInSadState = 0;
   }
   else if (value <= 700 && value > 500)
   {
@@ -67,24 +66,25 @@ void normalState()
     waterAllowed = true;
     screenCleared = false;
     loadedOnce = false;
-    timerStartedForDuration = false;
+    timerStartedDuration = false;
     BackGroundColor(255, 255, 255);
-    timeInSadState = 0;
   }
   else if (value > 700)
   {
     state = 2;
     setSadStateTime = true;
     BackGroundColor(255, 255, 255);
-    timeInSadState = millis() / 1000 - previousTimeForDuration;
 
-    Serial.print(timeInSadState);
+    Serial.println(timeInSadState);
 
-    if (!timerStarted)
+    if (!timerStartedDuration)
     {
       previousTimeForDuration = millis() / 1000;
-      timerStartedForDuration = true;
+      timerStartedDuration = true;
+      Serial.println("Timer started");
     }
+
+    timeInSadState = millis() / 1000 - previousTimeForDuration;
 
     if (loadedOnce)
     {
@@ -95,7 +95,6 @@ void normalState()
           ClearScreen();
           screenCleared = true;
           previousTime = millis();
-          Serial.println("Timer started");
         }
         BackGroundColor(75, 255, 255);
         wateringState(timeInSadState);
