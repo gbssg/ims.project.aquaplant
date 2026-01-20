@@ -56,6 +56,7 @@ void normalState()
     waterAllowed = true;
     screenCleared = false;
     loadedOnce = false;
+    BackGroundColor(255, 255, 255);
 
     if (setSadStateTime)
     {
@@ -70,6 +71,7 @@ void normalState()
     waterAllowed = true;
     screenCleared = false;
     loadedOnce = false;
+    BackGroundColor(255, 255, 255);
 
     if (setSadStateTime)
     {
@@ -82,6 +84,7 @@ void normalState()
   {
     state = 2;
     setSadStateTime = true;
+    BackGroundColor(255, 255, 255);
 
     if (loadedOnce)
     {
@@ -94,6 +97,7 @@ void normalState()
           previousTime = millis();
           Serial.println("Timer started");
         }
+        BackGroundColor(75, 255, 255);
         wateringState();
         waterAllowed = false;
       }
