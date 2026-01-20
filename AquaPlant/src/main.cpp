@@ -59,13 +59,7 @@ void normalState()
     loadedOnce = false;
     timerStartedForDuration = false;
     BackGroundColor(255, 255, 255);
-
-    if (setSadStateTime)
-    {
-      timeInSadState = millis() / 1000 - previousTime / 1000;
-      setSadStateTime = false;
-    }
-    Serial.println(timeInSadState);
+    timeInSadState = 0;
   }
   else if (value <= 700 && value > 500)
   {
@@ -75,19 +69,16 @@ void normalState()
     loadedOnce = false;
     timerStartedForDuration = false;
     BackGroundColor(255, 255, 255);
-
-    if (setSadStateTime)
-    {
-      timeInSadState = millis() / 1000 - previousTime / 1000;
-      setSadStateTime = false;
-    }
-    Serial.println(timeInSadState);
+    timeInSadState = 0;
   }
   else if (value > 700)
   {
     state = 2;
     setSadStateTime = true;
     BackGroundColor(255, 255, 255);
+    timeInSadState = millis() / 1000 - previousTimeForDuration;
+
+    Serial.print(timeInSadState);
 
     if (!timerStarted)
     {
@@ -107,7 +98,7 @@ void normalState()
           Serial.println("Timer started");
         }
         BackGroundColor(75, 255, 255);
-        wateringState(millis() - previousTimeForDuration);
+        wateringState(timeInSadState);
         waterAllowed = false;
       }
     }
