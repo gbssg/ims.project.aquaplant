@@ -16,3 +16,4 @@ void CreateCharSetupBackslash();
 void WriteCharClock();
 void WriteCharRainDrop();
 void WriteCharBackslash();
+void BackGroundColor(int red, int green, int blue);

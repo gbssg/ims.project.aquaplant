@@ -319,3 +319,8 @@ void ClearScreen()
 {
   lcd.clear();
 }
+
+void BackGroundColor(int red, int green, int blue)
+{
+  lcd.setFastBacklight(red, green, blue);
+}
