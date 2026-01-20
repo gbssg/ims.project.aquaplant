@@ -70,10 +70,9 @@ void lcdNormalStateLoop()
   }
 }
 
-void lcdWateringStateLoop()
+void lcdWateringStateLoop(int timeWithoutWater)
 {
   messwert = 100 - (100 / (double)1023 * get_value());
-  int timeWithoutWater = (millis()) / 1000;
 
   if ((millis() - startMillisWateringState) >= 1000)
   {

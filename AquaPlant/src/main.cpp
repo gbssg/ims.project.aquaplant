@@ -17,6 +17,8 @@ bool waterAllowed = true;
 bool screenCleared = false;
 bool loadedOnce = false;
 bool setSadStateTime = true;
+bool timerStartedForDuration = false;
+int previousTimeForDuration = 0;
 
 IState *statesArray[] = {
     new HappyState(),
@@ -25,8 +27,7 @@ IState *statesArray[] = {
 
 IState *aktuellerZustand = nullptr;
 
-// Fehler noch beheben.
-void wateringState()
+void wateringState(int timeWithoutWater)
 {
   int previousTime = millis();
   int waterTime = 15;
@@ -34,7 +35,7 @@ void wateringState()
 
   while (millis() - previousTime < (waterTime * 1000))
   {
-    lcdWateringStateLoop();
+    lcdWateringStateLoop(timeWithoutWater);
   }
 }
 
@@ -56,6 +57,7 @@ void normalState()
     waterAllowed = true;
     screenCleared = false;
     loadedOnce = false;
+    timerStartedForDuration = false;
     BackGroundColor(255, 255, 255);
 
     if (setSadStateTime)
@@ -71,6 +73,7 @@ void normalState()
     waterAllowed = true;
     screenCleared = false;
     loadedOnce = false;
+    timerStartedForDuration = false;
     BackGroundColor(255, 255, 255);
 
     if (setSadStateTime)
@@ -86,6 +89,12 @@ void normalState()
     setSadStateTime = true;
     BackGroundColor(255, 255, 255);
 
+    if (!timerStarted)
+    {
+      previousTimeForDuration = millis() / 1000;
+      timerStartedForDuration = true;
+    }
+
     if (loadedOnce)
     {
       if (waterAllowed)
@@ -98,7 +107,7 @@ void normalState()
           Serial.println("Timer started");
         }
         BackGroundColor(75, 255, 255);
-        wateringState();
+        wateringState(millis() - previousTimeForDuration);
         waterAllowed = false;
       }
     }
