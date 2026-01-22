@@ -81,25 +81,16 @@ void normalState()
       previousTimeForDuration = millis() / 1000;
       previousTimeForWatering = millis() / 1000;
       timerStartedDuration = true;
-      Serial.println("Timers started");
     }
 
     timeSinceLastWatering = millis() / 1000 - previousTimeForWatering;
     timeInSadState = millis() / 1000 - previousTimeForDuration;
-
-    Serial.println("");
-    Serial.println("Time in Sad State:");
-    Serial.println(timeInSadState);
-    Serial.println("Time for next watering");
-    Serial.println(timeSinceLastWatering);
-    Serial.println("");
 
     if (timeSinceLastWatering >= 30)
     {
       wateringState(timeInSadState);
       BackGroundColor(75, 255, 255);
       previousTimeForWatering = millis() / 1000;
-      Serial.println("Timer reset");
     }
 
     if (loadedOnce)
