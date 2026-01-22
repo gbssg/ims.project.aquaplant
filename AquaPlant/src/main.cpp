@@ -20,7 +20,7 @@ bool setSadStateTime = true;
 bool timerStartedDuration = false;
 int previousTimeForDuration = 0;
 int timeInSadState = 0;
-int timeForNextWatering = 0;
+int timeSinceLastWatering = 0;
 int previousTimeForWatering = 0;
 
 IState *statesArray[] = {
@@ -76,12 +76,6 @@ void normalState()
     state = 2;
     setSadStateTime = true;
     BackGroundColor(255, 255, 255);
-
-    Serial.println("Time in Sad State:");
-    Serial.println(timeInSadState);
-    Serial.println("Time for next watering");
-    Serial.println(timeForNextWatering - previousTimeForWatering);
-
     if (!timerStartedDuration)
     {
       previousTimeForDuration = millis() / 1000;
@@ -90,15 +84,22 @@ void normalState()
       Serial.println("Timers started");
     }
 
-    // Hat aus irgendeinem Grund 2 Sekunden delay
-    timeForNextWatering = millis() / 1000 - previousTimeForDuration + 2;
-    timeInSadState = millis() / 1000 - previousTimeForWatering;
+    timeSinceLastWatering = millis() / 1000 - previousTimeForWatering;
+    timeInSadState = millis() / 1000 - previousTimeForDuration;
 
-    if (timeForNextWatering - previousTimeForWatering >= 30)
+    Serial.println("");
+    Serial.println("Time in Sad State:");
+    Serial.println(timeInSadState);
+    Serial.println("Time for next watering");
+    Serial.println(timeSinceLastWatering);
+    Serial.println("");
+
+    if (timeSinceLastWatering >= 30)
     {
       wateringState(timeInSadState);
       BackGroundColor(75, 255, 255);
       previousTimeForWatering = millis() / 1000;
+      Serial.println("Timer reset");
     }
 
     if (loadedOnce)
