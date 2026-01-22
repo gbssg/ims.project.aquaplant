@@ -72,6 +72,7 @@ void lcdNormalStateLoop()
 
 void lcdWateringStateLoop(int timeWithoutWater)
 {
+
   messwert = 100 - (100 / (double)1023 * get_value());
 
   if ((millis() - startMillisWateringState) >= 1000)
@@ -84,6 +85,11 @@ void lcdWateringStateLoop(int timeWithoutWater)
     }
     else
     {
+      if (timeWateringState == 15)
+      {
+        lcd.clear();
+      }
+
       startMillisWateringState = millis();
 
       lcd.setCursor(0, 0);
