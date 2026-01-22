@@ -42,6 +42,43 @@ void wateringState(int timeWithoutWater)
   }
 }
 
+void wateringLogic()
+{
+  if (!timerStartedDuration)
+  {
+    previousTimeForDuration = millis() / 1000;
+    previousTimeForWatering = millis() / 1000;
+    timerStartedDuration = true;
+  }
+
+  timeSinceLastWatering = millis() / 1000 - previousTimeForWatering;
+  timeInSadState = millis() / 1000 - previousTimeForDuration;
+
+  if (timeSinceLastWatering >= 30)
+  {
+    wateringState(timeInSadState);
+    BackGroundColor(75, 255, 255);
+    previousTimeForWatering = millis() / 1000;
+  }
+
+  if (loadedOnce)
+  {
+    if (waterAllowed)
+    {
+      if (!screenCleared)
+      {
+        ClearScreen();
+        screenCleared = true;
+        previousTime = millis();
+      }
+      BackGroundColor(75, 255, 255);
+      wateringState(timeInSadState);
+      waterAllowed = false;
+    }
+  }
+  loadedOnce = true;
+}
+
 void normalState()
 {
 
@@ -76,39 +113,7 @@ void normalState()
     state = 2;
     setSadStateTime = true;
     BackGroundColor(255, 255, 255);
-    if (!timerStartedDuration)
-    {
-      previousTimeForDuration = millis() / 1000;
-      previousTimeForWatering = millis() / 1000;
-      timerStartedDuration = true;
-    }
-
-    timeSinceLastWatering = millis() / 1000 - previousTimeForWatering;
-    timeInSadState = millis() / 1000 - previousTimeForDuration;
-
-    if (timeSinceLastWatering >= 30)
-    {
-      wateringState(timeInSadState);
-      BackGroundColor(75, 255, 255);
-      previousTimeForWatering = millis() / 1000;
-    }
-
-    if (loadedOnce)
-    {
-      if (waterAllowed)
-      {
-        if (!screenCleared)
-        {
-          ClearScreen();
-          screenCleared = true;
-          previousTime = millis();
-        }
-        BackGroundColor(75, 255, 255);
-        wateringState(timeInSadState);
-        waterAllowed = false;
-      }
-    }
-    loadedOnce = true;
+    wateringLogic();
   }
 
   aktuellerZustand = statesArray[state];
