@@ -14,6 +14,8 @@ void MehState::RenderOLED()
 {
     emojiMeh2();
 };
-void MehState::ExecuteMD() {
-    // MDLoopMeh();
+void MehState::ExecuteMD()
+{
+    // No implementation for HappyState
+    Serial.println("HappyState: No MD action required.");
 };
