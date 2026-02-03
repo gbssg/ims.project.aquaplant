@@ -4,6 +4,8 @@
 #include "MD.h"
 #include "LCD.h"
 #include "OLED.h"
+#include "SCMD.h"
+#include "SCMD_config.h"
 // Class
 #include "IState.h"
 #include "HappyState.h"
@@ -21,6 +23,7 @@ int previousTimeForDuration = 0;
 int timeInSadState = 0;
 int timeSinceLastWatering = 0;
 int previousTimeForWatering = 0;
+static SCMD myMD; // Objekt erstellen
 
 IState *statesArray[] = {
     new HappyState(),
@@ -31,13 +34,16 @@ IState *aktuellerZustand = nullptr;
 
 void wateringState(int timeWithoutWater)
 {
+
   int previousTime = millis();
   int waterTime = 15;
+  MD_On();
 
   while (millis() - previousTime < (waterTime * 1000))
   {
     lcdWateringStateLoop(timeWithoutWater);
   }
+  MD_Off();
 }
 
 void wateringLogic()

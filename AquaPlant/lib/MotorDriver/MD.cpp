@@ -127,20 +127,25 @@ void MDLoopMeh()
     }
 }
 
-void MDLoopSad()
+void MD_On()
 {
-    level = 255;
+    level = 230;
     if (myMD.ready())
     {
         if (!myMD.busy())
         {
             myMD.enable();
             myMD.setDrive(motorNum, direction, level);
-            delay(2000);
-            myMD.disable();
-            myMD.reset();
+            Serial.println("It should be watering");
         }
     }
+}
+
+void MD_Off()
+{
+    myMD.disable();
+    myMD.reset();
+    Serial.println("Disabled");
 }
 
 // Under Construction
