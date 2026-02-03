@@ -12,7 +12,6 @@
 
 int state = 0;
 int previousTime = millis();
-int timeWithoutWatering = 0;
 bool waterAllowed = true;
 bool screenCleared = false;
 bool loadedOnce = false;
@@ -34,7 +33,6 @@ void wateringState(int timeWithoutWater)
 {
   int previousTime = millis();
   int waterTime = 15;
-  bool waterIt = true;
 
   while (millis() - previousTime < (waterTime * 1000))
   {
