@@ -27,7 +27,7 @@ void lcdSetup()
   lcd.setContrast(5);
 }
 
-// Datenanzeige des LCDs
+// Datenanzeige des LCDs, ausserhalb des Bewässerungszustandes
 void lcdNormalStateLoop()
 {
   if ((millis() - startMillislcdLoop) <= 5000)
@@ -70,6 +70,7 @@ void lcdNormalStateLoop()
   }
 }
 
+// Datenanzeige des LCDs, während die Pumpe Läuft
 void lcdWateringStateLoop(int timeWithoutWater)
 {
 
@@ -135,6 +136,9 @@ void lcdWateringStateLoop(int timeWithoutWater)
 
 // Nachrichten, welche je nach Zustand angezeigt werden
 // Überarbeiten!
+/*
+Eventuell könnte man im SadState die Zeit ohne Wasser aufzeigen
+*/
 void LCDHappy()
 {
   lcd.setCursor(0, 1);
@@ -221,6 +225,7 @@ void CreateCharSetup()
   lcd.createChar(4, circle5);
 }
 
+// Regentropfen char Vorlage
 void createCharSetupRainDrop()
 {
   byte raindrop[8] = {
@@ -236,6 +241,7 @@ void createCharSetupRainDrop()
   lcd.createChar(5, raindrop);
 }
 
+// Wanduhr char Vorlage
 void createCharSetupClock()
 {
   byte clock[8] = {
@@ -251,6 +257,7 @@ void createCharSetupClock()
   lcd.createChar(6, clock);
 }
 
+// Backslash char Vorlage
 void CreateCharSetupBackslash()
 {
   byte backslash[8] = {
@@ -266,7 +273,7 @@ void CreateCharSetupBackslash()
   lcd.createChar(7, backslash);
 }
 
-// Zyklus der Animation
+// Zyklus der Animation ausgeben
 void WriteCharLoadingAnimation()
 {
   lcd.setCursor(15, 1);
@@ -285,21 +292,25 @@ void WriteCharLoadingAnimation()
   }
 }
 
+// Regentropfen ausgeben
 void WriteCharRainDrop()
 {
   lcd.writeChar(5);
 }
 
+// Wanduhr ausgeben
 void WriteCharClock()
 {
   lcd.writeChar(6);
 }
 
+// Backslash ausgeben
 void WriteCharBackslash()
 {
   lcd.writeChar(7);
 }
 
+// Troubleshooting für den Motordriver + Pumpe
 void MDTesting()
 {
   if (GetStatus() == 1)
@@ -320,11 +331,13 @@ void MDTesting()
   lcd.println(GetLevel());
 }
 
+// Bildschirm leeren im main.cpp
 void ClearScreen()
 {
   lcd.clear();
 }
 
+// Hintergrundfarbe einstellen im main.cpp
 void BackGroundColor(int red, int green, int blue)
 {
   lcd.setFastBacklight(red, green, blue);
