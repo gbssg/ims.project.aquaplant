@@ -20,6 +20,7 @@ unsigned long startMillisMD = 0;
 
 bool enoughWater = false;
 
+// MotorDriver voreinstellen und aufstarten
 void MDSetup()
 {
 
@@ -37,6 +38,7 @@ void MDSetup()
     Serial.println("ID matches");
 }
 
+// Status setzte, um zwischen den States zu wechseln (Veraltet)
 void SetStatus(int NewStatus)
 {
     status = NewStatus;
@@ -45,6 +47,7 @@ void SetStatus(int NewStatus)
     Serial.print("\n");
 }
 
+// Status holen, um erfolgreiches wechseln zu überprüfen (Veraltet)
 int GetStatus()
 {
     Serial.print("Received Status: ");
@@ -54,16 +57,19 @@ int GetStatus()
     return status;
 }
 
+// Troubleshooting (Veraltet)
 int GetMotorNum()
 {
     return motorNum;
 }
 
+// Troubleshooting (Veraltet)
 int GetLevel()
 {
     return level;
 }
 
+// Troubleshooting (Veraltet)
 void MDLoopTest()
 {
     if (myMD.ready())
@@ -84,6 +90,7 @@ void MDLoopTest()
     }
 }
 
+// Bewässerung, unabhägnig des Status (Veraltet)
 void MDLoop()
 {
     if (myMD.ready())
@@ -104,6 +111,7 @@ void MDLoop()
     }
 }
 
+// Bewässerung im Meh Status (Veraltet)
 void MDLoopMeh()
 {
     level = 125;
@@ -127,6 +135,7 @@ void MDLoopMeh()
     }
 }
 
+// Pumpe anschalten
 void MD_On()
 {
     level = 230;
@@ -136,16 +145,17 @@ void MD_On()
         {
             myMD.enable();
             myMD.setDrive(motorNum, direction, level);
-            Serial.println("It should be watering");
+            Serial.println("Activated watering");
         }
     }
 }
 
+// Pumpe ausschalten
 void MD_Off()
 {
     myMD.disable();
     myMD.reset();
-    Serial.println("Disabled");
+    Serial.println("Disabled watering");
 }
 
 // Under Construction
