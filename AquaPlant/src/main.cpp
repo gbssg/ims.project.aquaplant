@@ -40,13 +40,13 @@ void wateringState(int timeWithoutWater)
 
   int previousTime = millis();
   int waterTime = 15;
-  MD_On();
+  // MD_On();
 
   while (millis() - previousTime < (waterTime * 1000))
   {
     lcdWateringStateLoop(timeWithoutWater);
   }
-  MD_Off();
+  // MD_Off();
 }
 
 // Vorgang um wateringState aufzurufen
