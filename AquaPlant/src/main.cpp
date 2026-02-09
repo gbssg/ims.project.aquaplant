@@ -25,13 +25,16 @@ int timeSinceLastWatering = 0;
 int previousTimeForWatering = 0;
 static SCMD myMD; // Objekt erstellen
 
+// Alle drei States für das StrategyPattern
 IState *statesArray[] = {
     new HappyState(),
     new MehState(),
     new SadState()};
 
+// Pointer initialisieren
 IState *aktuellerZustand = nullptr;
 
+// Seperater State innerhalb des SadSates, welches für die Bewässerung zuständig ist
 void wateringState(int timeWithoutWater)
 {
 
@@ -46,6 +49,7 @@ void wateringState(int timeWithoutWater)
   MD_Off();
 }
 
+// Vorgang um wateringState aufzurufen
 void wateringLogic()
 {
   if (!timerStartedDuration)
