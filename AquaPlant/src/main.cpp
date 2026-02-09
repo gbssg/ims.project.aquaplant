@@ -4,6 +4,8 @@
 #include "MD.h"
 #include "LCD.h"
 #include "OLED.h"
+#include "SCMD.h"
+#include "SCMD_config.h"
 // Class
 #include "IState.h"
 #include "HappyState.h"
@@ -11,6 +13,17 @@
 #include "SadState.h"
 
 int state = 0;
+int previousTime = millis();
+bool waterAllowed = true;
+bool screenCleared = false;
+bool loadedOnce = false;
+bool setSadStateTime = true;
+bool timerStartedDuration = false;
+int previousTimeForDuration = 0;
+int timeInSadState = 0;
+int timeSinceLastWatering = 0;
+int previousTimeForWatering = 0;
+static SCMD myMD; // Objekt erstellen
 
 IState *statesArray[] = {
     new HappyState(),
@@ -19,8 +32,60 @@ IState *statesArray[] = {
 
 IState *aktuellerZustand = nullptr;
 
+void wateringState(int timeWithoutWater)
+{
+
+  int previousTime = millis();
+  int waterTime = 15;
+  MD_On();
+
+  while (millis() - previousTime < (waterTime * 1000))
+  {
+    lcdWateringStateLoop(timeWithoutWater);
+  }
+  MD_Off();
+}
+
+void wateringLogic()
+{
+  if (!timerStartedDuration)
+  {
+    previousTimeForDuration = millis() / 1000;
+    previousTimeForWatering = millis() / 1000;
+    timerStartedDuration = true;
+  }
+
+  timeSinceLastWatering = millis() / 1000 - previousTimeForWatering;
+  timeInSadState = millis() / 1000 - previousTimeForDuration;
+
+  if (timeSinceLastWatering >= 30)
+  {
+    wateringState(timeInSadState);
+    BackGroundColor(75, 255, 255);
+    previousTimeForWatering = millis() / 1000;
+  }
+
+  if (loadedOnce)
+  {
+    if (waterAllowed)
+    {
+      if (!screenCleared)
+      {
+        ClearScreen();
+        screenCleared = true;
+        previousTime = millis();
+      }
+      BackGroundColor(75, 255, 255);
+      wateringState(timeInSadState);
+      waterAllowed = false;
+    }
+  }
+  loadedOnce = true;
+}
+
 void normalState()
 {
+
   lcdNormalStateLoop();
 
   moistureSensorLoop();
@@ -32,14 +97,27 @@ void normalState()
   if (value <= 500)
   {
     state = 0;
+    waterAllowed = true;
+    screenCleared = false;
+    loadedOnce = false;
+    timerStartedDuration = false;
+    BackGroundColor(255, 255, 255);
   }
   else if (value <= 700 && value > 500)
   {
     state = 1;
+    waterAllowed = true;
+    screenCleared = false;
+    loadedOnce = false;
+    timerStartedDuration = false;
+    BackGroundColor(255, 255, 255);
   }
   else if (value > 700)
   {
     state = 2;
+    setSadStateTime = true;
+    BackGroundColor(255, 255, 255);
+    wateringLogic();
   }
 
   aktuellerZustand = statesArray[state];
@@ -47,11 +125,6 @@ void normalState()
   aktuellerZustand->RenderLCD();
   aktuellerZustand->RenderOLED();
   aktuellerZustand->ExecuteMD();
-}
-
-void wateringState()
-{
-  lcdWateringStateLoop();
 }
 
 void setup()

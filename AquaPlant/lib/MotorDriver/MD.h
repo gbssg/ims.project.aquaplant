@@ -2,7 +2,8 @@
 
 void MDSetup();
 void MDLoop();
-void MDLoopSad();
+void MD_On();
+void MD_Off();
 void MDLoopMeh();
 void getDiagnostics();
 void SetStatus(int);

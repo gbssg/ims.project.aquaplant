@@ -34,7 +34,7 @@ int get_value()
     }
     uint16_t x = Wire.read();
     double ADC_Wert = int(ADC_VALUE);
-    Serial.println(ADC_Wert);
+    // Serial.println(ADC_Wert);
     return ADC_Wert;
 }
 

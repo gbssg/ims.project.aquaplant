@@ -7,7 +7,7 @@ unsigned long startMillisEmoji = 0;
 int width = myOLED.getWidth();
 int height = myOLED.getHeight();
 
-// Grundeinstellung des OLEDs
+// OLED voreinstellen und aufstarten
 void oledSetup()
 {
     Serial.println("OLED Setup");
@@ -27,7 +27,7 @@ void oledSetup()
     myOLED.setFont(QW_FONT_5X7);
 }
 
-// Veraltet
+// Selbstgemachte OLED Ausgabe (Veraltet)
 void emojiMeh()
 {
     int widthLine = 0;
@@ -67,7 +67,7 @@ void emojiMeh()
     myOLED.display();
 }
 
-// Veraltet
+// Selbstgemachte OLED Ausgabe (Veraltet)
 void emojiHappy()
 {
     int widthLine = 0;
@@ -107,7 +107,7 @@ void emojiHappy()
     myOLED.display();
 }
 
-// Veraltet
+// Selbstgemachte OLED Ausgabe (Veraltet)
 void emojiSad()
 {
     int widthLine = 0;
@@ -148,7 +148,7 @@ void emojiSad()
     myOLED.display();
 }
 
-// Zur Überprüfung
+// Alle Ausgaben nacheinander ausgaben als Showcase (Veraltet)
 void emojiShowcase()
 {
     if (millis() - startMillisEmoji <= 5000)
@@ -168,6 +168,8 @@ void emojiShowcase()
         startMillisEmoji = millis();
     }
 }
+
+// ---Bitmaps---
 
 // Bitmap emoji Sad V2
 void emojiSad2()

@@ -9,8 +9,11 @@ unsigned long startMillislcdLoop = 0;
 int startMillisLoadingLoop = 0;
 int i = 0;
 int messwert = 0;
+
 int startMillisWateringState = 0;
-int timeWateringState = 60;
+int timeWateringStateStandard = 15;
+int timeWateringState = timeWateringState;
+
 boolean isWatering = true;
 
 // Grundeinstellungen
@@ -24,7 +27,7 @@ void lcdSetup()
   lcd.setContrast(5);
 }
 
-// Datenanzeige des LCDs
+// Datenanzeige des LCDs, ausserhalb des Bewässerungszustandes
 void lcdNormalStateLoop()
 {
   if ((millis() - startMillislcdLoop) <= 5000)
@@ -67,21 +70,27 @@ void lcdNormalStateLoop()
   }
 }
 
-void lcdWateringStateLoop()
+// Datenanzeige des LCDs, während die Pumpe Läuft
+void lcdWateringStateLoop(int timeWithoutWater)
 {
+
   messwert = 100 - (100 / (double)1023 * get_value());
-  int timeWithoutWater = (millis()) / 1000;
 
   if ((millis() - startMillisWateringState) >= 1000)
   {
 
     if (timeWateringState <= 0)
     {
-      timeWateringState = 60;
+      timeWateringState = timeWateringStateStandard;
       isWatering = false;
     }
     else
     {
+      if (timeWateringState == 15)
+      {
+        lcd.clear();
+      }
+
       startMillisWateringState = millis();
 
       lcd.setCursor(0, 0);
@@ -102,6 +111,7 @@ void lcdWateringStateLoop()
       lcd.setCursor(9, 0);
       lcd.print(":");
 
+      // Um den Wechsel von zweistellige zu 1einstellige Sekunden aufzuräumen
       if (timeWateringState == 10)
       {
         lcd.clear();
@@ -126,6 +136,9 @@ void lcdWateringStateLoop()
 
 // Nachrichten, welche je nach Zustand angezeigt werden
 // Überarbeiten!
+/*
+Eventuell könnte man im SadState die Zeit ohne Wasser aufzeigen
+*/
 void LCDHappy()
 {
   lcd.setCursor(0, 1);
@@ -212,6 +225,7 @@ void CreateCharSetup()
   lcd.createChar(4, circle5);
 }
 
+// Regentropfen char Vorlage
 void createCharSetupRainDrop()
 {
   byte raindrop[8] = {
@@ -227,6 +241,7 @@ void createCharSetupRainDrop()
   lcd.createChar(5, raindrop);
 }
 
+// Wanduhr char Vorlage
 void createCharSetupClock()
 {
   byte clock[8] = {
@@ -242,6 +257,7 @@ void createCharSetupClock()
   lcd.createChar(6, clock);
 }
 
+// Backslash char Vorlage
 void CreateCharSetupBackslash()
 {
   byte backslash[8] = {
@@ -257,7 +273,7 @@ void CreateCharSetupBackslash()
   lcd.createChar(7, backslash);
 }
 
-// Zyklus der Animation
+// Zyklus der Animation ausgeben
 void WriteCharLoadingAnimation()
 {
   lcd.setCursor(15, 1);
@@ -276,21 +292,25 @@ void WriteCharLoadingAnimation()
   }
 }
 
+// Regentropfen ausgeben
 void WriteCharRainDrop()
 {
   lcd.writeChar(5);
 }
 
+// Wanduhr ausgeben
 void WriteCharClock()
 {
   lcd.writeChar(6);
 }
 
+// Backslash ausgeben
 void WriteCharBackslash()
 {
   lcd.writeChar(7);
 }
 
+// Troubleshooting für den Motordriver + Pumpe
 void MDTesting()
 {
   if (GetStatus() == 1)
@@ -311,7 +331,14 @@ void MDTesting()
   lcd.println(GetLevel());
 }
 
+// Bildschirm leeren im main.cpp
 void ClearScreen()
 {
   lcd.clear();
+}
+
+// Hintergrundfarbe einstellen im main.cpp
+void BackGroundColor(int red, int green, int blue)
+{
+  lcd.setFastBacklight(red, green, blue);
 }

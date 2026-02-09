@@ -2,7 +2,7 @@
 
 void lcdSetup();
 void lcdNormalStateLoop();
-void lcdWateringStateLoop();
+void lcdWateringStateLoop(int timeWithoutWater);
 void LCDHappy();
 void LCDMeh();
 void LCDSad();
@@ -16,3 +16,4 @@ void CreateCharSetupBackslash();
 void WriteCharClock();
 void WriteCharRainDrop();
 void WriteCharBackslash();
+void BackGroundColor(int red, int green, int blue);
