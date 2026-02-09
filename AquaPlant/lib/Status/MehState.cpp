@@ -16,6 +16,6 @@ void MehState::RenderOLED()
 };
 void MehState::ExecuteMD()
 {
-    // No implementation for HappyState
-    Serial.println("HappyState: No MD action required.");
+    // No implementation for MehState
+    Serial.println("MehState: No MD action required.");
 };
