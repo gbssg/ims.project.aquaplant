@@ -35,10 +35,6 @@ IState *statesArray[] = {
 // Pointer initialisieren
 IState *aktuellerZustand = nullptr;
 
-// here
-
-// here
-
 void normalState()
 {
 
@@ -53,17 +49,14 @@ void normalState()
   if (value <= 500)
   {
     state = 0;
-    setBooleans(1);
   }
   else if (value <= 700 && value > 500)
   {
     state = 1;
-    setBooleans(1);
   }
   else if (value > 700)
   {
     state = 2;
-    setBooleans(2);
     wateringLogic();
   }
 

@@ -2,6 +2,7 @@
 #include "OLED.h"
 #include "LCD.h"
 #include "MD.h"
+#include "WP.h"
 // Class
 #include "IState.h"
 #include "HappyState.h"
@@ -9,10 +10,12 @@
 void HappyState::RenderLCD()
 {
     LCDHappy();
+    setBooleans(1);
 };
 void HappyState::RenderOLED()
 {
     emojiHappy2();
+    setBooleans(1);
 };
 void HappyState::ExecuteMD()
 {
