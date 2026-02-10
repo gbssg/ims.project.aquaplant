@@ -6,6 +6,7 @@
 #include "OLED.h"
 #include "SCMD.h"
 #include "SCMD_config.h"
+#include "WP.h"
 // Class
 #include "IState.h"
 #include "HappyState.h"
@@ -84,21 +85,6 @@ void wateringLogic()
     }
   }
   loadedOnce = true;
-}
-
-void setBooleans(int inputForBooleanGroup)
-{
-  if (inputForBooleanGroup == 1)
-  {
-    waterAllowed = true;
-    screenCleared = false;
-    loadedOnce = false;
-    timerStartedDuration = false;
-  }
-  else if (inputForBooleanGroup == 2)
-  {
-    setSadStateTime = true;
-  }
 }
 
 void normalState()
