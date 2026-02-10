@@ -10,8 +10,8 @@ extern bool loadedOnce;
 extern bool setSadStateTime;
 extern bool timerStartedDuration;
 
-extern int previousTimeForDuration;
-extern int previousTimeForWatering;
+extern int lastTimeInSadState;
+extern int lastTimeWatering;
 extern int timeSinceLastWatering;
 extern int timeInSadState;
 extern int previousTime;
@@ -31,8 +31,8 @@ void setBooleans(int inputForBooleanGroup)
     }
 }
 
-// Seperater State innerhalb des SadSates, welches für die Bewässerung zuständig ist
-void wateringState(int timeWithoutWater)
+// Seperater Prozess innerhalb der Waterlogic, welches für die Bewässerung zuständig ist.
+void wateringProcess(int timeWithoutWater)
 {
 
     int previousTime = millis();
@@ -46,23 +46,23 @@ void wateringState(int timeWithoutWater)
     // MD_Off();
 }
 
-// Vorgang um wateringState aufzurufen
+// Logik hinter der Bewässerung
 void wateringLogic()
 {
     if (!timerStartedDuration)
     {
-        previousTimeForDuration = millis() / 1000;
-        previousTimeForWatering = millis() / 1000;
+        lastTimeInSadState = millis() / 1000;
+        lastTimeWatering = millis() / 1000;
         timerStartedDuration = true;
     }
 
-    timeSinceLastWatering = millis() / 1000 - previousTimeForWatering;
-    timeInSadState = millis() / 1000 - previousTimeForDuration;
+    timeSinceLastWatering = millis() / 1000 - lastTimeWatering;
+    timeInSadState = millis() / 1000 - lastTimeInSadState;
 
     if (timeSinceLastWatering >= 30)
     {
-        wateringState(timeInSadState);
-        previousTimeForWatering = millis() / 1000;
+        wateringProcess(timeInSadState);
+        lastTimeWatering = millis() / 1000;
     }
 
     if (loadedOnce)
@@ -76,7 +76,7 @@ void wateringLogic()
                 previousTime = millis();
             }
             BackGroundColor(75, 255, 255);
-            wateringState(timeInSadState);
+            wateringProcess(timeInSadState);
             waterAllowed = false;
         }
     }
