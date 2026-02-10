@@ -13,6 +13,7 @@
 #include "MehState.h"
 #include "SadState.h"
 
+// Bemerkung: Ein paar Variabeln werden extern benutzt
 int state = 0;
 int previousTime = millis();
 bool waterAllowed = true;
@@ -35,7 +36,7 @@ IState *statesArray[] = {
 // Pointer initialisieren
 IState *aktuellerZustand = nullptr;
 
-void normalState()
+void StateSelection()
 {
 
   lcdNormalStateLoop();
@@ -57,7 +58,6 @@ void normalState()
   else if (value > 700)
   {
     state = 2;
-    wateringLogic();
   }
 
   aktuellerZustand = statesArray[state];
@@ -70,7 +70,6 @@ void normalState()
 void setup()
 {
   Serial.begin(115200);
-  Serial1.begin(9600);
   Wire.begin();
   moistureSensorSetup();
   lcdSetup();
@@ -84,5 +83,5 @@ void setup()
 
 void loop()
 {
-  normalState();
+  stateSelection();
 }

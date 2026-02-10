@@ -17,6 +17,7 @@ void SadState::RenderOLED()
     emojiSad2();
     setBooleans(2);
 };
-void SadState::ExecuteMD() {
-    // MDLoopSad();
+void SadState::ExecuteMD()
+{
+    wateringLogic();
 };
