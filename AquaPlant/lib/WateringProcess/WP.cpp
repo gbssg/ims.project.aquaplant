@@ -65,20 +65,17 @@ void wateringLogic()
         lastTimeWatering = millis() / 1000;
     }
 
-    if (loadedOnce)
+    if (loadedOnce && waterAllowed)
     {
-        if (waterAllowed)
+        if (!screenCleared)
         {
-            if (!screenCleared)
-            {
-                ClearScreen();
-                screenCleared = true;
-                previousTime = millis();
-            }
-            BackGroundColor(75, 255, 255);
-            wateringProcess(timeInSadState);
-            waterAllowed = false;
+            ClearScreen();
+            screenCleared = true;
+            previousTime = millis();
         }
+        BackGroundColor(75, 255, 255);
+        wateringProcess(timeInSadState);
+        waterAllowed = false;
     }
     loadedOnce = true;
 }

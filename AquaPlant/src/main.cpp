@@ -21,10 +21,10 @@ bool screenCleared = false;
 bool loadedOnce = false;
 bool setSadStateTime = true;
 bool timerStartedDuration = false;
-int previousTimeForDuration = 0;
-int timeInSadState = 0;
+int lastTimeInSadState = 0;
+int lastTimeWatering = 0;
 int timeSinceLastWatering = 0;
-int previousTimeForWatering = 0;
+int timeInSadState = 0;
 static SCMD myMD; // Objekt erstellen
 
 // Alle drei States für das StrategyPattern
