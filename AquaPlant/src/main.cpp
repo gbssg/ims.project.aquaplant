@@ -83,5 +83,5 @@ void setup()
 
 void loop()
 {
-  stateSelection();
+  StateSelection();
 }
