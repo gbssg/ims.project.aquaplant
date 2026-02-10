@@ -65,7 +65,6 @@ void wateringLogic()
   if (timeSinceLastWatering >= 30)
   {
     wateringState(timeInSadState);
-    BackGroundColor(75, 255, 255);
     previousTimeForWatering = millis() / 1000;
   }
 
@@ -87,6 +86,21 @@ void wateringLogic()
   loadedOnce = true;
 }
 
+void setBooleans(int inputForBooleanGroup)
+{
+  if (inputForBooleanGroup == 1)
+  {
+    waterAllowed = true;
+    screenCleared = false;
+    loadedOnce = false;
+    timerStartedDuration = false;
+  }
+  else if (inputForBooleanGroup == 2)
+  {
+    setSadStateTime = true;
+  }
+}
+
 void normalState()
 {
 
@@ -101,23 +115,17 @@ void normalState()
   if (value <= 500)
   {
     state = 0;
-    waterAllowed = true;
-    screenCleared = false;
-    loadedOnce = false;
-    timerStartedDuration = false;
+    setBooleans(1);
   }
   else if (value <= 700 && value > 500)
   {
     state = 1;
-    waterAllowed = true;
-    screenCleared = false;
-    loadedOnce = false;
-    timerStartedDuration = false;
+    setBooleans(1);
   }
   else if (value > 700)
   {
     state = 2;
-    setSadStateTime = true;
+    setBooleans(2);
     wateringLogic();
   }
 

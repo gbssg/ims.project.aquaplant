@@ -90,6 +90,7 @@ void lcdWateringStateLoop(int timeWithoutWater)
       {
         lcd.clear();
       }
+      BackGroundColor(75, 255, 255);
 
       startMillisWateringState = millis();
 
