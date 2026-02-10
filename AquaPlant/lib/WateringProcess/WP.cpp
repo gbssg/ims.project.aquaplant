@@ -69,11 +69,11 @@ void wateringLogic()
     {
         if (!screenCleared)
         {
-            ClearScreen();
+            clearScreen();
             screenCleared = true;
             previousTime = millis();
         }
-        BackGroundColor(75, 255, 255);
+        backGroundColor(75, 255, 255);
         wateringProcess(timeInSadState);
         waterAllowed = false;
     }

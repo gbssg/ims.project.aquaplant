@@ -43,7 +43,7 @@ void StateSelection()
 
   moistureSensorLoop();
 
-  WriteCharLoadingAnimation();
+  writeCharLoadingAnimation();
 
   int value = get_value();
 
@@ -75,8 +75,8 @@ void setup()
   lcdSetup();
   createCharSetupRainDrop();
   createCharSetupClock();
-  CreateCharSetupBackslash();
-  CreateCharSetup();
+  createCharSetupBackslash();
+  createCharSetup();
   oledSetup();
   MDSetup();
 }

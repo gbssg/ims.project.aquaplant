@@ -39,7 +39,7 @@ void MDSetup()
 }
 
 // Status setzte, um zwischen den States zu wechseln (Veraltet)
-void SetStatus(int NewStatus)
+void setStatus(int NewStatus)
 {
     status = NewStatus;
     Serial.print("\nStatus changed to: ");
@@ -48,7 +48,7 @@ void SetStatus(int NewStatus)
 }
 
 // Status holen, um erfolgreiches wechseln zu überprüfen (Veraltet)
-int GetStatus()
+int getStatus()
 {
     Serial.print("Received Status: ");
     Serial.print(status);
@@ -58,13 +58,13 @@ int GetStatus()
 }
 
 // Troubleshooting (Veraltet)
-int GetMotorNum()
+int getMotorNum()
 {
     return motorNum;
 }
 
 // Troubleshooting (Veraltet)
-int GetLevel()
+int getLevel()
 {
     return level;
 }
@@ -81,7 +81,7 @@ void MDLoopTest()
             {
                 myMD.setDrive(motorNum, direction, level);
                 // Serial.println("Motor activated");
-                SetStatus(1);
+                setStatus(1);
                 MDTesting();
                 delay(1000);
             }
@@ -100,7 +100,7 @@ void MDLoop()
         if (get_value() > 700)
         {
             myMD.setDrive(motorNum, direction, level);
-            SetStatus(1);
+            setStatus(1);
             MDTesting();
         }
         else

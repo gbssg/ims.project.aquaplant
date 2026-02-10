@@ -9,7 +9,7 @@
 
 void SadState::RenderLCD()
 {
-    LCDSad();
+    lcdSad();
     setBooleans(2);
 };
 void SadState::RenderOLED()

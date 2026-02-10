@@ -9,7 +9,7 @@
 
 void MehState::RenderLCD()
 {
-    LCDMeh();
+    lcdMeh();
     setBooleans(1);
 };
 void MehState::RenderOLED()

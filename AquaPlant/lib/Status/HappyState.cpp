@@ -9,7 +9,7 @@
 
 void HappyState::RenderLCD()
 {
-    LCDHappy();
+    lcdHappy();
     setBooleans(1);
 };
 void HappyState::RenderOLED()

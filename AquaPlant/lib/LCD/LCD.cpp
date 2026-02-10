@@ -90,12 +90,12 @@ void lcdWateringStateLoop(int timeWithoutWater)
       {
         lcd.clear();
       }
-      BackGroundColor(75, 255, 255);
+      backGroundColor(75, 255, 255);
 
       startMillisWateringState = millis();
 
       lcd.setCursor(0, 0);
-      WriteCharRainDrop();
+      writeCharRainDrop();
 
       lcd.setCursor(1, 0);
       lcd.print(":");
@@ -107,7 +107,7 @@ void lcdWateringStateLoop(int timeWithoutWater)
       lcd.print("%");
 
       lcd.setCursor(8, 0);
-      WriteCharClock();
+      writeCharClock();
 
       lcd.setCursor(9, 0);
       lcd.print(":");
@@ -123,11 +123,11 @@ void lcdWateringStateLoop(int timeWithoutWater)
       lcd.print("s");
 
       lcd.setCursor(0, 1);
-      WriteCharClock();
+      writeCharClock();
 
       lcd.setCursor(1, 1);
-      WriteCharBackslash();
-      WriteCharRainDrop();
+      writeCharBackslash();
+      writeCharRainDrop();
       lcd.print(":");
       lcd.print(timeWithoutWater);
       lcd.print("s");
@@ -140,29 +140,30 @@ void lcdWateringStateLoop(int timeWithoutWater)
 /*
 Eventuell könnte man im SadState die Zeit ohne Wasser aufzeigen
 */
-void LCDHappy()
+
+void lcdHappy()
 {
   lcd.setCursor(0, 1);
   lcd.print("Wunderbar!     ");
-  BackGroundColor(255, 255, 255);
+  backGroundColor(255, 255, 255);
 }
 
-void LCDMeh()
+void lcdMeh()
 {
   lcd.setCursor(0, 1);
   lcd.print("Ganz okey...   ");
-  BackGroundColor(255, 255, 255);
+  backGroundColor(255, 255, 255);
 }
 
-void LCDSad()
+void lcdSad()
 {
   lcd.setCursor(0, 1);
   lcd.print("Gib mir Wasser!");
-  BackGroundColor(255, 255, 255);
+  backGroundColor(255, 255, 255);
 }
 
 // Animation zur Überprüfung der FPS
-void CreateCharSetup()
+void createCharSetup()
 {
   byte circle1[8] =
       {
@@ -262,7 +263,7 @@ void createCharSetupClock()
 }
 
 // Backslash char Vorlage
-void CreateCharSetupBackslash()
+void createCharSetupBackslash()
 {
   byte backslash[8] = {
       B00000,
@@ -278,7 +279,7 @@ void CreateCharSetupBackslash()
 }
 
 // Zyklus der Animation ausgeben
-void WriteCharLoadingAnimation()
+void writeCharLoadingAnimation()
 {
   lcd.setCursor(15, 1);
   if ((millis() - startMillisLoadingLoop) <= 500)
@@ -297,19 +298,19 @@ void WriteCharLoadingAnimation()
 }
 
 // Regentropfen ausgeben
-void WriteCharRainDrop()
+void writeCharRainDrop()
 {
   lcd.writeChar(5);
 }
 
 // Wanduhr ausgeben
-void WriteCharClock()
+void writeCharClock()
 {
   lcd.writeChar(6);
 }
 
 // Backslash ausgeben
-void WriteCharBackslash()
+void writeCharBackslash()
 {
   lcd.writeChar(7);
 }
@@ -317,12 +318,12 @@ void WriteCharBackslash()
 // Troubleshooting für den Motordriver + Pumpe
 void MDTesting()
 {
-  if (GetStatus() == 1)
+  if (getStatus() == 1)
   {
     lcd.clear();
     lcd.println("Motor is ON");
   }
-  else if (GetStatus() == 0)
+  else if (getStatus() == 0)
   {
     lcd.clear();
     lcd.println("Motor is OFF");
@@ -332,17 +333,17 @@ void MDTesting()
     lcd.clear();
     Serial.print("Error");
   }
-  lcd.println(GetLevel());
+  lcd.println(getLevel());
 }
 
-// Bildschirm leeren im main.cpp
-void ClearScreen()
+// Bildschirm leeren globally
+void clearScreen()
 {
   lcd.clear();
 }
 
 // Hintergrundfarbe einstellen im main.cpp
-void BackGroundColor(int red, int green, int blue)
+void backGroundColor(int red, int green, int blue)
 {
   lcd.setFastBacklight(red, green, blue);
 }
