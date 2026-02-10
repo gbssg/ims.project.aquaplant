@@ -105,7 +105,6 @@ void normalState()
     screenCleared = false;
     loadedOnce = false;
     timerStartedDuration = false;
-    BackGroundColor(255, 255, 255);
   }
   else if (value <= 700 && value > 500)
   {
@@ -114,13 +113,11 @@ void normalState()
     screenCleared = false;
     loadedOnce = false;
     timerStartedDuration = false;
-    BackGroundColor(255, 255, 255);
   }
   else if (value > 700)
   {
     state = 2;
     setSadStateTime = true;
-    BackGroundColor(255, 255, 255);
     wateringLogic();
   }
 

@@ -143,18 +143,21 @@ void LCDHappy()
 {
   lcd.setCursor(0, 1);
   lcd.print("Wunderbar!     ");
+  BackGroundColor(255, 255, 255);
 }
 
 void LCDMeh()
 {
   lcd.setCursor(0, 1);
   lcd.print("Ganz okey...   ");
+  BackGroundColor(255, 255, 255);
 }
 
 void LCDSad()
 {
   lcd.setCursor(0, 1);
   lcd.print("Gib mir Wasser!");
+  BackGroundColor(255, 255, 255);
 }
 
 // Animation zur Überprüfung der FPS
