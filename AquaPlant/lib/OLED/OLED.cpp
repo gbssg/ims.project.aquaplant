@@ -687,7 +687,7 @@ void sadEmojiAnimation()
     // UNDER CONSTRUCTION
     uint8_t *bitmapArray[countOfElements] = {Sad0, Sad1, Sad2, Sad3, Sad4, Sad5};
 
-    for (int i = 0; i <= countOfElements; i++)
+    for (int i = 0; i <= countOfElements - 1; i++)
     {
         while (timeStample - startTime <= 0.3)
         {
