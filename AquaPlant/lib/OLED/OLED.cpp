@@ -686,10 +686,21 @@ void sadEmojiAnimation()
 
     // UNDER CONSTRUCTION
     uint8_t *bitmapArray[countOfElements] = {Sad0, Sad1, Sad2, Sad3, Sad4, Sad5};
-
+    /*
+        for (int i = 0; i <= countOfElements - 1; i++)
+        {
+            while (timeStample - startTime <= 0.3)
+            {
+                myOLED.bitmap(x, y, bitmapArray[i], bmpWidth, bmpHeight);
+                myOLED.display();
+                timeStample = millis() / 1000;
+            }
+            startTime = millis() / 1000;
+        }
+    */
     for (int i = 0; i <= countOfElements - 1; i++)
     {
-        while (timeStample - startTime <= 0.3)
+        if (timeStample - startTime <= 1)
         {
             myOLED.bitmap(x, y, bitmapArray[i], bmpWidth, bmpHeight);
             myOLED.display();
@@ -697,25 +708,4 @@ void sadEmojiAnimation()
         }
         startTime = millis() / 1000;
     }
-    /*
-    myOLED.bitmap(x, y, pointer6, bmpWidth, bmpHeight);
-    myOLED.display();
-    delay(300);
-
-    myOLED.bitmap(x, y, pointer7, bmpWidth, bmpHeight);
-    myOLED.display();
-    delay(300);
-
-    myOLED.bitmap(x, y, pointer8, bmpWidth, bmpHeight);
-    myOLED.display();
-    delay(300);
-
-    myOLED.bitmap(x, y, pointer9, bmpWidth, bmpHeight);
-    myOLED.display();
-    delay(300);
-
-    myOLED.bitmap(x, y, pointer10, bmpWidth, bmpHeight);
-    myOLED.display();
-    delay(300);
-    */
 }
