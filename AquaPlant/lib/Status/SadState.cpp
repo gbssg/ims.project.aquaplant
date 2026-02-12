@@ -10,15 +10,17 @@
 void SadState::RenderLCD()
 {
     lcdSad();
-    setBooleans(2);
 };
 void SadState::RenderOLED()
 {
-    // emojiSad2();
-    sadEmojiAnimation();
-    setBooleans(2);
+    emojiSad2();
+    // sadEmojiAnimation();
 };
 void SadState::ExecuteMD()
 {
     wateringLogic();
 };
+void SadState::ConfigureBooleans()
+{
+    setBooleans(2);
+}

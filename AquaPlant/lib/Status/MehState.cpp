@@ -10,15 +10,17 @@
 void MehState::RenderLCD()
 {
     lcdMeh();
-    setBooleans(1);
 };
 void MehState::RenderOLED()
 {
     emojiMeh2();
-    setBooleans(1);
 };
 void MehState::ExecuteMD()
 {
     // No implementation for HappyState
     Serial.println("HappyState: No MD action required.");
 };
+void MehState::ConfigureBooleans()
+{
+    setBooleans(1);
+}

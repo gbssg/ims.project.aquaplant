@@ -65,6 +65,7 @@ void StateSelection()
   aktuellerZustand->RenderLCD();
   aktuellerZustand->RenderOLED();
   aktuellerZustand->ExecuteMD();
+  aktuellerZustand->ConfigureBooleans();
 }
 
 void setup()

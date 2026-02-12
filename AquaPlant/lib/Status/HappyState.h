@@ -13,4 +13,5 @@ public:
     void RenderLCD();
     void RenderOLED();
     void ExecuteMD();
+    void ConfigureBooleans();
 };
