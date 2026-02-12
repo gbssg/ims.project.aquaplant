@@ -686,26 +686,35 @@ void sadEmojiAnimation()
 
     // UNDER CONSTRUCTION
     uint8_t *bitmapArray[countOfElements] = {Sad0, Sad1, Sad2, Sad3, Sad4, Sad5};
-    /*
-        for (int i = 0; i <= countOfElements - 1; i++)
-        {
-            while (timeStample - startTime <= 0.3)
-            {
-                myOLED.bitmap(x, y, bitmapArray[i], bmpWidth, bmpHeight);
-                myOLED.display();
-                timeStample = millis() / 1000;
-            }
-            startTime = millis() / 1000;
-        }
-    */
+
+    startTime = millis() / 1000;
+
     for (int i = 0; i <= countOfElements - 1; i++)
     {
-        if (timeStample - startTime <= 1)
+        Serial.print("StartTime:");
+        Serial.print(startTime);
+        Serial.print("\r\n");
+        Serial.print("TimeStample:");
+        Serial.print(timeStample);
+        Serial.print("\r\n");
+        delay(1000);
+
+        Serial.println(i);
+
+        timeStample = millis() / 1000;
+
+        if (timeStample - startTime >= 3)
         {
             myOLED.bitmap(x, y, bitmapArray[i], bmpWidth, bmpHeight);
             myOLED.display();
-            timeStample = millis() / 1000;
+            Serial.print("Dif:");
+            Serial.print(timeStample - startTime);
+            Serial.print("\r\n");
+            startTime = millis() / 1000;
         }
-        startTime = millis() / 1000;
+        else
+        {
+            i--;
+        }
     }
 }
