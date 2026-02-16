@@ -12,6 +12,8 @@ float timeStample = millis() / 1000;
 float startTime = millis() / 1000;
 
 int countOfElements = 6;
+int frame = 0;
+bool cycleStarted = true;
 
 // OLED voreinstellen und aufstarten
 void oledSetup()
@@ -687,34 +689,28 @@ void sadEmojiAnimation()
     // UNDER CONSTRUCTION
     uint8_t *bitmapArray[countOfElements] = {Sad0, Sad1, Sad2, Sad3, Sad4, Sad5};
 
-    startTime = millis() / 1000;
-
-    for (int i = 0; i <= countOfElements - 1; i++)
+    if (cycleStarted)
     {
-        Serial.print("StartTime:");
-        Serial.print(startTime);
+        startTime = millis() / 1000;
+        cycleStarted = false;
+    }
+
+    timeStample = millis() / 1000;
+
+    if (timeStample - startTime >= 1)
+    {
+        Serial.println(frame);
+        myOLED.bitmap(x, y, bitmapArray[frame], bmpWidth, bmpHeight);
+        myOLED.display();
+        Serial.print("Dif:");
+        Serial.print(timeStample - startTime);
         Serial.print("\r\n");
-        Serial.print("TimeStample:");
-        Serial.print(timeStample);
-        Serial.print("\r\n");
-        delay(1000);
+        cycleStarted = true;
+        frame++;
+    }
 
-        Serial.println(i);
-
-        timeStample = millis() / 1000;
-
-        if (timeStample - startTime >= 3)
-        {
-            myOLED.bitmap(x, y, bitmapArray[i], bmpWidth, bmpHeight);
-            myOLED.display();
-            Serial.print("Dif:");
-            Serial.print(timeStample - startTime);
-            Serial.print("\r\n");
-            startTime = millis() / 1000;
-        }
-        else
-        {
-            i--;
-        }
+    if (frame == 6)
+    {
+        frame = 0;
     }
 }
