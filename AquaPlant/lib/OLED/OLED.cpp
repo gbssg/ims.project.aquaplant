@@ -699,12 +699,8 @@ void sadEmojiAnimation()
 
     if (timeStample - startTime >= 1)
     {
-        Serial.println(frame);
         myOLED.bitmap(x, y, bitmapArray[frame], bmpWidth, bmpHeight);
         myOLED.display();
-        Serial.print("Dif:");
-        Serial.print(timeStample - startTime);
-        Serial.print("\r\n");
         cycleStarted = true;
         frame++;
     }
