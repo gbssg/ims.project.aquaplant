@@ -3,6 +3,7 @@
 #include <MS.h>
 #include "LCD.h"
 #include "MD.h"
+#include "OLED.h"
 
 static SerLCD lcd;
 unsigned long startMillislcdLoop = 0;
@@ -73,7 +74,6 @@ void lcdNormalStateLoop()
 // Datenanzeige des LCDs, während die Pumpe Läuft
 void lcdWateringStateLoop(int timeWithoutWater)
 {
-
   messwert = 100 - (100 / (double)1023 * get_value());
 
   if ((millis() - startMillisWateringState) >= 1000)
