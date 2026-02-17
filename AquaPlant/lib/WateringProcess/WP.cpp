@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "Wire.h"
 #include "LCD.h"
+#include "OLED.h"
 #include "MS.h"
 
 extern bool waterAllowed;
@@ -41,6 +42,7 @@ void wateringProcess(int timeWithoutWater)
 
     while (millis() - previousTime < (waterTime * 1000))
     {
+        wateringFrame();
         lcdWateringStateLoop(timeWithoutWater);
     }
     // MD_Off();
