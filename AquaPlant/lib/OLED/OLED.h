@@ -7,3 +7,4 @@ void emojiMeh2();
 void sadEmojiAnimation();
 void wateringFrame();
 void mehEmojiAnimation();
+void happyEmojiAnimation();
