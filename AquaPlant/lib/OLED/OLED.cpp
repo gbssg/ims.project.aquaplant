@@ -1024,7 +1024,6 @@ void sadEmojiAnimation()
     }
     if (timeStample - startTime >= frameTime)
     {
-        Serial.println(frame);
         myOLED.bitmap(x, y, bitmapArraySad[frame], bmpWidth, bmpHeight);
         myOLED.display();
         cycleStarted = true;
