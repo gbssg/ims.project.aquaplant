@@ -13,7 +13,7 @@ void MehState::RenderLCD()
 };
 void MehState::RenderOLED()
 {
-    emojiMeh2();
+    mehEmojiAnimation();
 };
 void MehState::ExecuteMD()
 {
