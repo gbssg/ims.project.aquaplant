@@ -1015,28 +1015,22 @@ uint8_t *bitmapArraySad[] = {Sad0, Sad1, Sad2, Sad3, Sad4, Sad5, Sad6, Sad7, Sad
 
 void sadEmojiAnimation()
 {
+    timeStample = millis();
 
     if (cycleStarted)
     {
         startTime = millis();
         cycleStarted = false;
     }
-    else if (frame >= 10)
-    {
-        frame = 0;
-    }
-
-    timeStample = millis();
-
     if (timeStample - startTime >= frameTime)
     {
+        Serial.println(frame);
         myOLED.bitmap(x, y, bitmapArraySad[frame], bmpWidth, bmpHeight);
         myOLED.display();
         cycleStarted = true;
         frame++;
     }
-
-    if (frame == 10)
+    if (frame > 10)
     {
         frame = 0;
     }
@@ -1390,19 +1384,13 @@ uint8_t *bitmapArrayMeh[] = {mehEmoji0, mehEmoji1, mehEmoji2, mehEmoji3};
 void mehEmojiAnimation()
 {
 
+    timeStample = millis();
+
     if (cycleStarted)
     {
         startTime = millis();
         cycleStarted = false;
     }
-
-    else if (frame >= 4)
-    {
-        frame = 0;
-    }
-
-    timeStample = millis();
-
     if (timeStample - startTime >= frameTime)
     {
         myOLED.bitmap(x, y, bitmapArrayMeh[frame], bmpWidth, bmpHeight);
@@ -1410,8 +1398,7 @@ void mehEmojiAnimation()
         cycleStarted = true;
         frame++;
     }
-
-    if (frame == 4)
+    if (frame > 3)
     {
         frame = 0;
     }
@@ -1621,19 +1608,13 @@ uint8_t *bitmapArrayHappy[] = {happyEmoji0, happyEmoji1, happyEmoji2};
 
 void happyEmojiAnimation()
 {
+    timeStample = millis();
 
     if (cycleStarted)
     {
         startTime = millis();
         cycleStarted = false;
     }
-    else if (frame >= 3)
-    {
-        frame = 0;
-    }
-
-    timeStample = millis();
-
     if (timeStample - startTime >= frameTime)
     {
         myOLED.bitmap(x, y, bitmapArrayHappy[frame], bmpWidth, bmpHeight);
@@ -1641,8 +1622,7 @@ void happyEmojiAnimation()
         cycleStarted = true;
         frame++;
     }
-
-    if (frame == 3)
+    if (frame > 2)
     {
         frame = 0;
     }
