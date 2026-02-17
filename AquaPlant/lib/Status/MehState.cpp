@@ -13,12 +13,10 @@ void MehState::RenderLCD()
 };
 void MehState::RenderOLED()
 {
-    mehEmojiAnimation();
+    playEmoji(MEH);
 };
-void MehState::ExecuteMD()
-{
+void MehState::ExecuteMD() {
     // No implementation for HappyState
-    Serial.println("HappyState: No MD action required.");
 };
 void MehState::ConfigureBooleans()
 {

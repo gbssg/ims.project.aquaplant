@@ -13,7 +13,7 @@ void SadState::RenderLCD()
 };
 void SadState::RenderOLED()
 {
-    sadEmojiAnimation();
+    playEmoji(SAD);
 };
 void SadState::ExecuteMD()
 {

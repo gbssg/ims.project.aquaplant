@@ -13,12 +13,10 @@ void HappyState::RenderLCD()
 };
 void HappyState::RenderOLED()
 {
-    happyEmojiAnimation();
+    playEmoji(HAPPY);
 };
-void HappyState::ExecuteMD()
-{
+void HappyState::ExecuteMD() {
     // No implementation for HappyState
-    Serial.println("HappyState: No MD action required.");
 };
 void HappyState::ConfigureBooleans()
 {

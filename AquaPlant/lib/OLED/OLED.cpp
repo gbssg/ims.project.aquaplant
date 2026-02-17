@@ -1626,3 +1626,48 @@ void happyEmojiAnimation()
         frame = 0;
     }
 }
+
+// UNDER CONSTRUCTION
+
+void playAnimation(uint8_t **array, int maxFrameCount)
+{
+    timeStample = millis();
+
+    if (cycleStarted)
+    {
+        startTime = millis();
+        cycleStarted = false;
+    }
+    if (timeStample - startTime >= frameTime)
+    {
+        Serial.print("Frame: ");
+        Serial.print(frame);
+        Serial.println("");
+        myOLED.bitmap(x, y, array[frame], bmpWidth, bmpHeight);
+        myOLED.display();
+        cycleStarted = true;
+        frame++;
+    }
+    if (frame > maxFrameCount)
+    {
+        frame = 0;
+    }
+}
+
+// Ermöglicht das nutzen der playAnimation ausserhalb vom OLED.cpp File
+
+void playEmoji(EmojiType type)
+{
+    if (type == SAD)
+    {
+        playAnimation(bitmapArraySad, 10);
+    }
+    else if (type == MEH)
+    {
+        playAnimation(bitmapArrayMeh, 3);
+    }
+    else if (type == HAPPY)
+    {
+        playAnimation(bitmapArrayHappy, 2);
+    }
+}
