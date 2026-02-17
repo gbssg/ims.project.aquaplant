@@ -13,11 +13,7 @@ void SadState::RenderLCD()
 };
 void SadState::RenderOLED()
 {
-    // emojiSad2();
-    // sadEmojiAnimation();
-    // wateringFrame();
-    // mehEmojiAnimation();
-    happyEmojiAnimation();
+    sadEmojiAnimation();
 };
 void SadState::ExecuteMD()
 {

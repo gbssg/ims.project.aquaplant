@@ -13,7 +13,7 @@ void HappyState::RenderLCD()
 };
 void HappyState::RenderOLED()
 {
-    emojiHappy2();
+    happyEmojiAnimation();
 };
 void HappyState::ExecuteMD()
 {

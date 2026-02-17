@@ -1020,6 +1020,10 @@ void sadEmojiAnimation()
         startTime = millis();
         cycleStarted = false;
     }
+    else if (frame >= 10)
+    {
+        frame = 0;
+    }
 
     timeStample = millis();
 
@@ -1401,6 +1405,11 @@ void mehEmojiAnimation()
         cycleStarted = false;
     }
 
+    else if (frame >= 4)
+    {
+        frame = 0;
+    }
+
     timeStample = millis();
     Serial.println(timeStample - startTime);
     Serial.println(frame);
@@ -1633,6 +1642,10 @@ void happyEmojiAnimation()
     {
         startTime = millis();
         cycleStarted = false;
+    }
+    else if (frame >= 3)
+    {
+        frame = 0;
     }
 
     timeStample = millis();
