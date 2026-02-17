@@ -15,6 +15,11 @@ float frameTime = 100;
 int frame = 0;
 bool cycleStarted = true;
 
+uint8_t x = 0;
+uint8_t y = 0;
+uint8_t bmpWidth = 128;
+uint8_t bmpHeight = 64;
+
 // OLED voreinstellen und aufstarten
 void oledSetup()
 {
@@ -1010,10 +1015,6 @@ uint8_t *bitmapArraySad[] = {Sad0, Sad1, Sad2, Sad3, Sad4, Sad5, Sad6, Sad7, Sad
 
 void sadEmojiAnimation()
 {
-    uint8_t x = 0;
-    uint8_t y = 0;
-    uint8_t bmpWidth = 128;
-    uint8_t bmpHeight = 64;
 
     if (cycleStarted)
     {
@@ -1043,11 +1044,6 @@ void sadEmojiAnimation()
 //
 void wateringFrame()
 {
-    uint8_t x = 0;
-    uint8_t y = 0;
-    uint8_t bmpWidth = 128;
-    uint8_t bmpHeight = 64;
-
     uint8_t wateringCan[] PROGMEM =
         {
             0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
@@ -1394,11 +1390,6 @@ uint8_t *bitmapArrayMeh[] = {mehEmoji0, mehEmoji1, mehEmoji2, mehEmoji3};
 void mehEmojiAnimation()
 {
 
-    uint8_t x = 0;
-    uint8_t y = 0;
-    uint8_t bmpWidth = 128;
-    uint8_t bmpHeight = 64;
-
     if (cycleStarted)
     {
         startTime = millis();
@@ -1411,8 +1402,6 @@ void mehEmojiAnimation()
     }
 
     timeStample = millis();
-    Serial.println(timeStample - startTime);
-    Serial.println(frame);
 
     if (timeStample - startTime >= frameTime)
     {
@@ -1633,11 +1622,6 @@ uint8_t *bitmapArrayHappy[] = {happyEmoji0, happyEmoji1, happyEmoji2};
 void happyEmojiAnimation()
 {
 
-    uint8_t x = 0;
-    uint8_t y = 0;
-    uint8_t bmpWidth = 128;
-    uint8_t bmpHeight = 64;
-
     if (cycleStarted)
     {
         startTime = millis();
@@ -1649,8 +1633,6 @@ void happyEmojiAnimation()
     }
 
     timeStample = millis();
-    Serial.println(timeStample - startTime);
-    Serial.println(frame);
 
     if (timeStample - startTime >= frameTime)
     {
