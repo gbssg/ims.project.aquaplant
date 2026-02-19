@@ -8,11 +8,12 @@
 static SerLCD lcd;
 unsigned long startMillislcdLoop = 0;
 int startMillisLoadingLoop = 0;
-int i = 0;
+int i = 1;
 int messwert = 0;
 
 int startMillisWateringState = 0;
 int timeWateringStateStandard = 15;
+int cycle = 1;
 int timeWateringState = timeWateringState;
 
 boolean isWatering = true;
@@ -86,7 +87,7 @@ void lcdWateringStateLoop(int timeWithoutWater)
     }
     else
     {
-      if (timeWateringState == 15)
+      if (timeWateringState == 14)
       {
         lcd.clear();
       }
@@ -112,15 +113,30 @@ void lcdWateringStateLoop(int timeWithoutWater)
       lcd.setCursor(9, 0);
       lcd.print(":");
 
-      // Um den Wechsel von zweistellige zu 1einstellige Sekunden aufzuräumen
+      // Um den Wechsel von zweistellige zu einstellige Sekunden aufzuräumen
       if (timeWateringState == 10)
       {
         lcd.clear();
       }
 
-      lcd.print(timeWateringState);
-      timeWateringState--;
-      lcd.print("s");
+      if (timeWateringState > 3600)
+      {
+        lcd.print(timeWateringState / 60 / 60);
+        timeWateringState--;
+        lcd.print("h");
+      }
+      else if (timeWateringState > 60)
+      {
+        lcd.print(timeWateringState / 60);
+        timeWateringState--;
+        lcd.print("m");
+      }
+      else if (timeWateringState <= 60)
+      {
+        lcd.print(timeWateringState);
+        timeWateringState--;
+        lcd.print("s");
+      }
 
       lcd.setCursor(0, 1);
       writeCharClock();
@@ -129,8 +145,27 @@ void lcdWateringStateLoop(int timeWithoutWater)
       writeCharBackslash();
       writeCharRainDrop();
       lcd.print(":");
-      lcd.print(timeWithoutWater);
-      lcd.print("s");
+
+      Serial.print("time without water: ");
+      Serial.println(timeWithoutWater);
+      if (timeWithoutWater > 60)
+      {
+        lcd.print(timeWithoutWater / 60);
+        if (timeWithoutWater / 60 == i)
+        {
+          cycle++;
+          i++;
+        }
+        lcd.print("m");
+        lcd.print(":");
+        lcd.print(timeWithoutWater - 60 * cycle);
+        lcd.print("s");
+      }
+      else if (timeWithoutWater <= 60)
+      {
+        lcd.print(timeWithoutWater);
+        lcd.print("s");
+      }
     }
   }
 }

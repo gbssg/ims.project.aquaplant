@@ -77,6 +77,7 @@ void wateringLogic()
         }
         backGroundColor(75, 255, 255);
         wateringProcess(timeInSadState);
+        lastTimeWatering = millis() / 1000;
         waterAllowed = false;
     }
     loadedOnce = true;
