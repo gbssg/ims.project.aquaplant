@@ -8,7 +8,8 @@
 static SerLCD lcd;
 unsigned long startMillislcdLoop = 0;
 int startMillisLoadingLoop = 0;
-int i = 1;
+int i = 0;
+int it = 0;
 int messwert = 0;
 
 int startMillisWateringState = 0;
@@ -148,13 +149,18 @@ void lcdWateringStateLoop(int timeWithoutWater)
 
       Serial.print("time without water: ");
       Serial.println(timeWithoutWater);
+      Serial.print("i: ");
+      Serial.println(it);
+      Serial.print("cycle: ");
+      Serial.println(cycle);
+
       if (timeWithoutWater > 60)
       {
         lcd.print(timeWithoutWater / 60);
-        if (timeWithoutWater / 60 == i)
+        if (timeWithoutWater / 60 == it)
         {
           cycle++;
-          i++;
+          it++;
         }
         lcd.print("m");
         lcd.print(":");
@@ -320,6 +326,8 @@ void writeCharLoadingAnimation()
   if ((millis() - startMillisLoadingLoop) <= 500)
   {
     lcd.writeChar(i);
+    Serial.print("Current char: ");
+    Serial.println(i);
     i++;
     if (i > 4)
     {
