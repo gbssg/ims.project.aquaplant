@@ -15,6 +15,10 @@ int startMillisWateringState = 0;
 int timeWateringStateStandard = 15;
 int timeWateringState = timeWateringState;
 
+int h = 0;
+int m = 0;
+int s = 0;
+
 boolean isWatering = true;
 
 // Grundeinstellungen
@@ -74,6 +78,11 @@ void lcdNormalStateLoop()
 // Datenanzeige des LCDs, während die Pumpe Läuft
 void lcdWateringStateLoop(int timeWithoutWater)
 {
+
+  h = timeWithoutWater / 3600;
+  m = (timeWithoutWater % 3600) / 60;
+  s = timeWithoutWater % 60;
+
   messwert = 100 - (100 / (double)1023 * get_value());
 
   if ((millis() - startMillisWateringState) >= 1000)
@@ -129,8 +138,13 @@ void lcdWateringStateLoop(int timeWithoutWater)
       writeCharBackslash();
       writeCharRainDrop();
       lcd.print(":");
-      lcd.print(timeWithoutWater);
-      lcd.print("s");
+      lcd.print(" ");
+      lcd.print(h);
+      lcd.print("h ");
+      lcd.print(m);
+      lcd.print("m ");
+      lcd.print(s);
+      lcd.print("s ");
     }
   }
 }
