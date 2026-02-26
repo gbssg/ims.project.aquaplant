@@ -95,7 +95,7 @@ void lcdWateringStateLoop(int timeWithoutWater)
     }
     else
     {
-      if (timeWateringState == 15)
+      if (timeWateringState == 14)
       {
         lcd.clear();
       }
