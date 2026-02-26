@@ -19,6 +19,7 @@ int h = 0;
 int m = 0;
 int s = 0;
 
+boolean cleared = false;
 boolean isWatering = true;
 
 // Grundeinstellungen
@@ -90,9 +91,10 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
   Serial.print("Time in WateringState:");
   Serial.println(wateringDuration);
 
-  if (wateringDuration <= 2 && wateringDuration >= 1)
+  if (!cleared)
   {
     lcd.clear();
+    cleared = true;
   }
   backGroundColor(75, 255, 255);
 
@@ -131,7 +133,7 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
   writeCharBackslash();
   writeCharRainDrop();
   lcd.print(":");
-  lcd.print(" ");
+  lcd.print("  ");
   lcd.print(h);
   lcd.print("h ");
   lcd.print(m);
@@ -165,6 +167,7 @@ void lcdSad()
   lcd.setCursor(0, 1);
   lcd.print("Gib mir Wasser!");
   backGroundColor(255, 255, 255);
+  cleared = false;
 }
 
 // Animation zur Überprüfung der FPS
