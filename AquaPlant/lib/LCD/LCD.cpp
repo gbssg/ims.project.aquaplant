@@ -76,7 +76,7 @@ void lcdNormalStateLoop()
 }
 
 // Datenanzeige des LCDs, während die Pumpe Läuft
-void lcdWateringStateLoop(int timeWithoutWater)
+void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
 {
 
   h = timeWithoutWater / 3600;
@@ -85,71 +85,59 @@ void lcdWateringStateLoop(int timeWithoutWater)
 
   messwert = 100 - (100 / (double)1023 * get_value());
 
-  if ((millis() - startMillisWateringState) >= 1000)
+  Serial.print("Each Second:");
+  Serial.println(millis() - startMillisWateringState);
+  Serial.print("Time in WateringState:");
+  Serial.println(wateringDuration);
+
+  if (wateringDuration <= 2 && wateringDuration >= 1)
   {
-    Serial.print("Each Second:");
-    Serial.println(millis() - startMillisWateringState);
-    Serial.print("Time in WateringState:");
-    Serial.println(timeWateringState);
-    if (timeWateringState <= 0)
-    {
-      timeWateringState = timeWateringStateStandard;
-      isWatering = false;
-    }
-    else
-    {
-      if (timeWateringState == 14)
-      {
-        lcd.clear();
-      }
-      backGroundColor(75, 255, 255);
-
-      startMillisWateringState = millis();
-
-      lcd.setCursor(0, 0);
-      writeCharRainDrop();
-
-      lcd.setCursor(1, 0);
-      lcd.print(":");
-
-      lcd.setCursor(2, 0);
-      lcd.print(messwert);
-
-      lcd.setCursor(4, 0);
-      lcd.print("%");
-
-      lcd.setCursor(8, 0);
-      writeCharClock();
-
-      lcd.setCursor(9, 0);
-      lcd.print(":");
-
-      // Um den Wechsel von zweistellige zu 1einstellige Sekunden aufzuräumen
-      if (timeWateringState == 10)
-      {
-        lcd.clear();
-      }
-
-      lcd.print(timeWateringState);
-      timeWateringState--;
-      lcd.print("s");
-
-      lcd.setCursor(0, 1);
-      writeCharClock();
-
-      lcd.setCursor(1, 1);
-      writeCharBackslash();
-      writeCharRainDrop();
-      lcd.print(":");
-      lcd.print(" ");
-      lcd.print(h);
-      lcd.print("h ");
-      lcd.print(m);
-      lcd.print("m ");
-      lcd.print(s);
-      lcd.print("s ");
-    }
+    lcd.clear();
   }
+  backGroundColor(75, 255, 255);
+
+  startMillisWateringState = millis();
+
+  lcd.setCursor(0, 0);
+  writeCharRainDrop();
+
+  lcd.setCursor(1, 0);
+  lcd.print(":");
+
+  lcd.setCursor(2, 0);
+  lcd.print(messwert);
+
+  lcd.setCursor(4, 0);
+  lcd.print("%");
+
+  lcd.setCursor(8, 0);
+  writeCharClock();
+
+  lcd.setCursor(9, 0);
+  lcd.print(":");
+
+  // Um den Wechsel von zweistellige zu 1einstellige Sekunden aufzuräumen
+  if (wateringDuration <= 10 && wateringDuration >= 9)
+  {
+    lcd.clear();
+  }
+  lcd.print(roundf(wateringDuration) / 1000);
+  lcd.print("s");
+
+  lcd.setCursor(0, 1);
+  writeCharClock();
+
+  lcd.setCursor(1, 1);
+  writeCharBackslash();
+  writeCharRainDrop();
+  lcd.print(":");
+  lcd.print(" ");
+  lcd.print(h);
+  lcd.print("h ");
+  lcd.print(m);
+  lcd.print("m ");
+  lcd.print(s);
+  lcd.print("s ");
 }
 
 // Nachrichten, welche je nach Zustand angezeigt werden

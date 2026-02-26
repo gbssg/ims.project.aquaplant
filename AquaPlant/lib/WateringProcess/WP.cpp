@@ -42,6 +42,7 @@ void wateringProcess(int timeWithoutWater)
 {
 
     int previousTime = millis();
+    int waterDuration = 0;
     // Bewässerungsdauer
     int waterTime = 15;
     // MD_On();
@@ -50,9 +51,10 @@ void wateringProcess(int timeWithoutWater)
     {
         Serial.print("Duration:");
         Serial.println(millis() - previousTime);
+        waterDuration = millis() - previousTime;
 
         wateringFrame();
-        lcdWateringStateLoop(timeWithoutWater);
+        lcdWateringStateLoop(timeWithoutWater, waterDuration);
     }
     // MD_Off();
 }
