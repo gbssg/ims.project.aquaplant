@@ -14,6 +14,7 @@
 #include "SadState.h"
 
 // Bemerkung: Ein paar Variabeln werden extern benutzt
+// Diese Variablen sind nicht zu verändern
 int state = 0;
 int previousTime = millis();
 bool waterAllowed = true;
@@ -25,7 +26,10 @@ int lastTimeInSadState = 0;
 int lastTimeWatering = 0;
 int timeSinceLastWatering = 0;
 int timeInSadState = 0;
-static SCMD myMD; // Objekt erstellen
+static SCMD myMD;
+
+// Anpassungsfähige Variablen
+int timeForNextWatering = 30;
 
 // Alle drei States für das StrategyPattern
 IState *statesArray[] = {

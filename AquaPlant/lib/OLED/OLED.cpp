@@ -1329,9 +1329,6 @@ void playAnimation(uint8_t **array, int maxFrameCount)
     }
     if (timeStample - startTime >= frameTime)
     {
-        Serial.print("Frame: ");
-        Serial.print(frame);
-        Serial.println("");
         myOLED.bitmap(x, y, array[frame], bmpWidth, bmpHeight);
         myOLED.display();
         cycleStarted = true;

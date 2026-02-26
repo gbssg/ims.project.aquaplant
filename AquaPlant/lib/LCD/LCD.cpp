@@ -87,7 +87,10 @@ void lcdWateringStateLoop(int timeWithoutWater)
 
   if ((millis() - startMillisWateringState) >= 1000)
   {
-
+    Serial.print("Each Second:");
+    Serial.println(millis() - startMillisWateringState);
+    Serial.print("Time in WateringState:");
+    Serial.println(timeWateringState);
     if (timeWateringState <= 0)
     {
       timeWateringState = timeWateringStateStandard;

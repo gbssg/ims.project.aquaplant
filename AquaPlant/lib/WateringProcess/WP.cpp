@@ -5,17 +5,22 @@
 #include "OLED.h"
 #include "MS.h"
 
+// Booleans
 extern bool waterAllowed;
 extern bool screenCleared;
 extern bool loadedOnce;
 extern bool setSadStateTime;
 extern bool timerStartedDuration;
 
+// Zeitstempeln
 extern int lastTimeInSadState;
 extern int lastTimeWatering;
 extern int timeSinceLastWatering;
 extern int timeInSadState;
 extern int previousTime;
+
+// Anpassungsfähige Variablen
+extern int timeForNextWatering;
 
 void setBooleans(int inputForBooleanGroup)
 {
@@ -32,16 +37,20 @@ void setBooleans(int inputForBooleanGroup)
     }
 }
 
-// Seperater Prozess innerhalb der Waterlogic, welches für die Bewässerung zuständig ist.
+// Seperater Prozess innerhalb der Wateringlogic, welches für die Bewässerung zuständig ist.
 void wateringProcess(int timeWithoutWater)
 {
 
     int previousTime = millis();
+    // Bewässerungsdauer
     int waterTime = 15;
     // MD_On();
 
     while (millis() - previousTime < (waterTime * 1000))
     {
+        Serial.print("Duration:");
+        Serial.println(millis() - previousTime);
+
         wateringFrame();
         lcdWateringStateLoop(timeWithoutWater);
     }
@@ -61,7 +70,7 @@ void wateringLogic()
     timeSinceLastWatering = millis() / 1000 - lastTimeWatering;
     timeInSadState = millis() / 1000 - lastTimeInSadState;
 
-    if (timeSinceLastWatering >= 30)
+    if (timeSinceLastWatering >= timeForNextWatering)
     {
         wateringProcess(timeInSadState);
         lastTimeWatering = millis() / 1000;
