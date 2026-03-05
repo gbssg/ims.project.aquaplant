@@ -49,8 +49,6 @@ void wateringProcess(int timeWithoutWater)
 
     while (millis() - previousTime < (waterTime * 1000))
     {
-        Serial.print("Duration:");
-        Serial.println(millis() - previousTime);
         waterDuration = millis() - previousTime;
 
         wateringFrame();
