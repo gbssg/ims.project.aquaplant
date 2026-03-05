@@ -101,25 +101,57 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
   lcd.setCursor(1, 0);
   lcd.print(":");
 
-  lcd.setCursor(2, 0);
-  lcd.print(messwert);
+  if (messwert < 10)
+  {
+    lcd.setCursor(2, 0);
+    lcd.print(messwert);
 
-  lcd.setCursor(4, 0);
-  lcd.print("%");
+    lcd.setCursor(3, 0);
+    lcd.print("%");
 
-  lcd.setCursor(8, 0);
+    lcd.setCursor(4, 0);
+    lcd.print(" ");
+  }
+  else
+  {
+    lcd.setCursor(2, 0);
+    lcd.print(messwert);
+
+    lcd.setCursor(4, 0);
+    lcd.print("%");
+  }
+
+  lcd.setCursor(11, 0);
   writeCharClock();
 
-  lcd.setCursor(9, 0);
+  lcd.setCursor(12, 0);
   lcd.print(":");
 
   // Um den Wechsel von zweistellige zu 1einstellige Sekunden aufzuräumen
-  if ((15 - (roundf(wateringDuration) / 1000)) <= 9 && (15 - (roundf(wateringDuration) / 1000)) >= 8)
+  /*
+  if ((15 - (roundf(wateringDuration) / 1000)) <= 9 && (15 - (roundf(wateringDuration) / 1000)) >= 8.5)
   {
     lcd.clear();
   }
-  lcd.print(15 - int(roundf(wateringDuration) / 1000));
-  lcd.print("s");
+  */
+  if ((15 - int(roundf(wateringDuration) / 1000)) >= 10)
+  {
+    lcd.setCursor(13, 0);
+    lcd.print(15 - int(roundf(wateringDuration) / 1000));
+    lcd.setCursor(15, 0);
+    lcd.print("s");
+    Serial.println("Zweistellig");
+  }
+  else
+  {
+    lcd.setCursor(13, 0);
+    lcd.print(15 - int(roundf(wateringDuration) / 1000));
+    lcd.setCursor(14, 0);
+    lcd.print("s");
+    lcd.setCursor(15, 0);
+    lcd.print(" ");
+    Serial.println("Einstellig");
+  }
 
   lcd.setCursor(0, 1);
   writeCharClock();
@@ -128,7 +160,7 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
   writeCharBackslash();
   writeCharRainDrop();
   lcd.print(":");
-  lcd.print("  ");
+  lcd.setCursor(7, 1);
   lcd.print(h);
   lcd.print("h ");
   lcd.print(m);
