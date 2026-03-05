@@ -114,11 +114,11 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
   lcd.print(":");
 
   // Um den Wechsel von zweistellige zu 1einstellige Sekunden aufzuräumen
-  if ((15 - (roundf(wateringDuration) / 1000)) <= 10 && (15 - (roundf(wateringDuration) / 1000)) >= 9)
+  if ((15 - (roundf(wateringDuration) / 1000)) <= 9 && (15 - (roundf(wateringDuration) / 1000)) >= 8)
   {
     lcd.clear();
   }
-  lcd.print(15 - (roundf(wateringDuration) / 1000));
+  lcd.print(15 - int(roundf(wateringDuration) / 1000));
   lcd.print("s");
 
   lcd.setCursor(0, 1);
