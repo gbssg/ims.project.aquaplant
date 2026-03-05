@@ -140,7 +140,6 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
     lcd.print(15 - int(roundf(wateringDuration) / 1000));
     lcd.setCursor(15, 0);
     lcd.print("s");
-    Serial.println("Zweistellig");
   }
   else
   {
@@ -150,7 +149,6 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
     lcd.print("s");
     lcd.setCursor(15, 0);
     lcd.print(" ");
-    Serial.println("Einstellig");
   }
 
   lcd.setCursor(0, 1);
