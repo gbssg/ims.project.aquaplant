@@ -86,11 +86,6 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
 
   messwert = 100 - (100 / (double)1023 * get_value());
 
-  Serial.print("Each Second:");
-  Serial.println(millis() - startMillisWateringState);
-  Serial.print("Time in WateringState:");
-  Serial.println(wateringDuration);
-
   if (!cleared)
   {
     lcd.clear();
@@ -123,7 +118,7 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
   {
     lcd.clear();
   }
-  lcd.print(roundf(wateringDuration) / 1000);
+  lcd.print(15 - (roundf(wateringDuration) / 1000));
   lcd.print("s");
 
   lcd.setCursor(0, 1);
