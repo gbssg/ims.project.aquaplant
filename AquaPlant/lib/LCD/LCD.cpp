@@ -127,13 +127,6 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
   lcd.setCursor(12, 0);
   lcd.print(":");
 
-  // Um den Wechsel von zweistellige zu 1einstellige Sekunden aufzuräumen
-  /*
-  if ((15 - (roundf(wateringDuration) / 1000)) <= 9 && (15 - (roundf(wateringDuration) / 1000)) >= 8.5)
-  {
-    lcd.clear();
-  }
-  */
   if ((15 - int(roundf(wateringDuration) / 1000)) >= 10)
   {
     lcd.setCursor(13, 0);
@@ -166,12 +159,6 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
   lcd.print(s);
   lcd.print("s ");
 }
-
-// Nachrichten, welche je nach Zustand angezeigt werden
-// Überarbeiten!
-/*
-Eventuell könnte man im SadState die Zeit ohne Wasser aufzeigen
-*/
 
 void lcdHappy()
 {
