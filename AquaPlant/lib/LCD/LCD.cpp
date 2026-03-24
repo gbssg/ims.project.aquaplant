@@ -151,7 +151,7 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration, int wateri
   writeCharBackslash();
   writeCharRainDrop();
   lcd.print(":");
-  lcd.setCursor(7, 1);
+  lcd.setCursor(4, 1);
   lcd.print(h);
   lcd.print("h ");
   lcd.print(m);
