@@ -77,7 +77,7 @@ void lcdTopRowPrint()
 }
 
 // Datenanzeige des LCDs, während die Pumpe Läuft
-void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
+void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration, int wateringTime)
 {
 
   h = timeWithoutWater / 3600;
@@ -127,17 +127,17 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration)
   lcd.setCursor(12, 0);
   lcd.print(":");
 
-  if ((15 - int(roundf(wateringDuration) / 1000)) >= 10)
+  if ((wateringTime - int(roundf(wateringDuration) / 1000)) >= 10)
   {
     lcd.setCursor(13, 0);
-    lcd.print(15 - int(roundf(wateringDuration) / 1000));
+    lcd.print(wateringTime - int(roundf(wateringDuration) / 1000));
     lcd.setCursor(15, 0);
     lcd.print("s");
   }
   else
   {
     lcd.setCursor(13, 0);
-    lcd.print(15 - int(roundf(wateringDuration) / 1000));
+    lcd.print(wateringTime - int(roundf(wateringDuration) / 1000));
     lcd.setCursor(14, 0);
     lcd.print("s");
     lcd.setCursor(15, 0);

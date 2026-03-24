@@ -44,7 +44,7 @@ void wateringProcess(int timeWithoutWater)
     int previousTime = millis();
     int waterDuration = 0;
     // Bewässerungsdauer
-    int waterTime = 15;
+    int waterTime = 30;
     // MD_On();
 
     while (millis() - previousTime < (waterTime * 1000))
@@ -52,7 +52,7 @@ void wateringProcess(int timeWithoutWater)
         waterDuration = millis() - previousTime;
 
         wateringFrame();
-        lcdWateringStateLoop(timeWithoutWater, waterDuration);
+        lcdWateringStateLoop(timeWithoutWater, waterDuration, waterTime);
     }
     // MD_Off();
 }

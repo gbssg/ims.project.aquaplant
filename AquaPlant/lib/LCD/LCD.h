@@ -2,7 +2,7 @@
 
 void lcdSetup();
 void lcdTopRowPrint();
-void lcdWateringStateLoop(int timeWithoutWaterm, int wateringDuration);
+void lcdWateringStateLoop(int timeWithoutWaterm, int wateringDuration, int wateringTime);
 void lcdHappy();
 void lcdMeh();
 void lcdSad();
