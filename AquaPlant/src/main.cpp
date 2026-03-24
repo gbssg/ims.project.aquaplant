@@ -43,9 +43,9 @@ IState *aktuellerZustand = nullptr;
 void StateSelection()
 {
 
-  lcdNormalStateLoop();
+  lcdTopRowPrint();
 
-  moistureSensorLoop();
+  moistureSensorActiveReadingIndicator();
 
   writeCharLoadingAnimation();
 

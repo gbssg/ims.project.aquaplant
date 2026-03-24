@@ -1,7 +1,7 @@
 #pragma once
 
 void lcdSetup();
-void lcdNormalStateLoop();
+void lcdTopRowPrint();
 void lcdWateringStateLoop(int timeWithoutWaterm, int wateringDuration);
 void lcdHappy();
 void lcdMeh();

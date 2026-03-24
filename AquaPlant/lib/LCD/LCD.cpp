@@ -34,7 +34,7 @@ void lcdSetup()
 }
 
 // Datenanzeige des LCDs, ausserhalb des Bewässerungszustandes
-void lcdNormalStateLoop()
+void lcdTopRowPrint()
 {
   if ((millis() - startMillislcdLoop) <= 5000)
   {

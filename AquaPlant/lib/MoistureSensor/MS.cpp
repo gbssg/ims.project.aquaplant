@@ -39,7 +39,7 @@ int get_value()
 }
 
 // LEDs zur Überprüfung
-void moistureSensorLoop()
+void moistureSensorActiveReadingIndicator()
 {
     if ((millis() - startMillisMSLoop) <= 1000)
     {
