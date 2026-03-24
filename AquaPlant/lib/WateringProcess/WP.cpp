@@ -21,6 +21,7 @@ extern int previousTime;
 
 // Anpassungsfähige Variablen
 extern int timeForNextWatering;
+extern int waterTime;
 
 void setBooleans(int inputForBooleanGroup)
 {
@@ -38,21 +39,20 @@ void setBooleans(int inputForBooleanGroup)
 }
 
 // Seperater Prozess innerhalb der Wateringlogic, welches für die Bewässerung zuständig ist.
-void wateringProcess(int timeWithoutWater)
+void wateringProcess(int timeWithoutWater, int effectiveWaterTime)
 {
 
     int previousTime = millis();
     int waterDuration = 0;
-    // Bewässerungsdauer
-    int waterTime = 30;
+
     // MD_On();
 
-    while (millis() - previousTime < (waterTime * 1000))
+    while (millis() - previousTime < (effectiveWaterTime * 1000))
     {
         waterDuration = millis() - previousTime;
 
         wateringFrame();
-        lcdWateringStateLoop(timeWithoutWater, waterDuration, waterTime);
+        lcdWateringStateLoop(timeWithoutWater, waterDuration, effectiveWaterTime);
     }
     // MD_Off();
 }
@@ -72,7 +72,7 @@ void wateringLogic()
 
     if (timeSinceLastWatering >= timeForNextWatering)
     {
-        wateringProcess(timeInSadState);
+        wateringProcess(timeInSadState, waterTime);
         lastTimeWatering = millis() / 1000;
     }
 
@@ -85,7 +85,7 @@ void wateringLogic()
             previousTime = millis();
         }
         backGroundColor(75, 255, 255);
-        wateringProcess(timeInSadState);
+        wateringProcess(timeInSadState, waterTime);
         waterAllowed = false;
     }
     loadedOnce = true;

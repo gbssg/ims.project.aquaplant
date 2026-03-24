@@ -30,6 +30,7 @@ static SCMD myMD;
 
 // Anpassungsfähige Variablen
 int timeForNextWatering = 30;
+int waterTime = 30;
 
 // Alle drei States für das StrategyPattern
 IState *statesArray[] = {
