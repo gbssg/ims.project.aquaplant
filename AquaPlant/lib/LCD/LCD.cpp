@@ -121,26 +121,26 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration, int wateri
     lcd.print("%");
   }
 
-  lcd.setCursor(11, 0);
+  lcd.setCursor(9, 0);
   writeCharClock();
 
-  lcd.setCursor(12, 0);
+  lcd.setCursor(10, 0);
   lcd.print(":");
 
   if ((wateringTime - int(roundf(wateringDuration) / 1000)) >= 10)
   {
-    lcd.setCursor(13, 0);
+    lcd.setCursor(11, 0);
     lcd.print(wateringTime - int(roundf(wateringDuration) / 1000));
-    lcd.setCursor(15, 0);
+    lcd.setCursor(13, 0);
     lcd.print("s");
   }
   else
   {
-    lcd.setCursor(13, 0);
+    lcd.setCursor(11, 0);
     lcd.print(wateringTime - int(roundf(wateringDuration) / 1000));
-    lcd.setCursor(14, 0);
+    lcd.setCursor(12, 0);
     lcd.print("s");
-    lcd.setCursor(15, 0);
+    lcd.setCursor(13, 0);
     lcd.print(" ");
   }
 
@@ -152,6 +152,8 @@ void lcdWateringStateLoop(int timeWithoutWater, int wateringDuration, int wateri
   writeCharRainDrop();
   lcd.print(":");
   lcd.setCursor(4, 1);
+  lcd.print("");
+  lcd.setCursor(5, 1);
   lcd.print(h);
   lcd.print("h ");
   lcd.print(m);
